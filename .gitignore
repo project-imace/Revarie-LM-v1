@@ -1,0 +1,129 @@
+# ============================================
+# Secrets & Environment
+# ============================================
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.crt
+secrets/
+kaggle.json
+
+# ============================================
+# Dependencies
+# ============================================
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.dylib
+*.dll
+target/                # Rust
+build/                 # C++ / CMake
+dist/
+*.egg-info/
+*.egg
+poetry.lock            # Often committed, but can be ignored if using exact deps
+Pipfile.lock
+
+# ============================================
+# Build Artifacts & Compiled Code
+# ============================================
+*.o
+*.obj
+*.a
+*.lib
+*.exp
+*.manifest
+*.exe
+*.out
+*.app
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+CTestTestfile.cmake
+
+# Rust
+**/*.rs.bk
+*.pdb
+
+# Lisp
+*.fasl
+*.lx64fsl
+*.lx32fsl
+
+# TypeScript / Next.js
+.next/
+out/
+*.tsbuildinfo
+.nuxt/
+.output/
+dist/
+
+# ============================================
+# IDE & Editor
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ============================================
+# Testing & Coverage
+# ============================================
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.tox/
+*.lcov
+coverage/
+.nyc_output/
+*.prof
+
+# ============================================
+# Docker
+# ============================================
+*.log
+docker-compose.override.yml
+
+# ============================================
+# Training Artifacts (large files)
+# ============================================
+*.onnx
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+training/amd-mi300x/models/
+training/kaggle-nightly/outputs/
+persona-engine/persona-shaper/samara_lora/*.safetensors
+persona-engine/persona-shaper/artery_lora/*.safetensors
+
+# ============================================
+# Temporary & Logs
+# ============================================
+tmp/
+temp/
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============================================
+# Local Configuration
+# ============================================
+*.local
+*.user
