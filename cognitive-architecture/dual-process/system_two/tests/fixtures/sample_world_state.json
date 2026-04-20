@@ -1,0 +1,12 @@
+{
+  "facts": {
+    "sky_color": "blue",
+    "sun_position": "overhead",
+    "weather": "clear"
+  },
+  "rules": [
+    "If sun is overhead and weather is clear, sky appears blue.",
+    "Rayleigh scattering causes blue wavelengths to dominate."
+  ],
+  "query": "Why is the sky blue?"
+}
