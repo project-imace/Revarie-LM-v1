@@ -1,0 +1,19 @@
+{
+  "stimuli": [
+    {
+      "input": "I'm feeling really happy today!",
+      "expected_tone": "positive",
+      "min_confidence": 0.5
+    },
+    {
+      "input": "This is so sad.",
+      "expected_tone": "negative",
+      "min_confidence": 0.5
+    },
+    {
+      "input": "Help! I need somebody!",
+      "expected_tone": "urgent",
+      "min_confidence": 0.5
+    }
+  ]
+}
