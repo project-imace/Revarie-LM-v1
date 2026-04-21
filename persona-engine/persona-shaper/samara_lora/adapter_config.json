@@ -1,0 +1,16 @@
+{
+  "name": "samara",
+  "rank": 16,
+  "alpha": 32.0,
+  "model_dim": 4096,
+  "target_modules": ["q_proj", "k_proj", "v_proj", "o_proj"],
+  "dropout": 0.05,
+  "persona_metadata": {
+    "persona_id": "samara_v1.0",
+    "anthropomorphism_level": 0.90,
+    "training_dataset": "empathetic_dialogues_v2",
+    "training_steps": 2500,
+    "version": "1.0.0",
+    "created_at": "2026-04-21T00:00:00Z"
+  }
+}

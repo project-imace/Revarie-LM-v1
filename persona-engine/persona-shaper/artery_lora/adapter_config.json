@@ -1,0 +1,16 @@
+{
+  "name": "artery",
+  "rank": 8,
+  "alpha": 16.0,
+  "model_dim": 4096,
+  "target_modules": ["q_proj", "v_proj"],
+  "dropout": 0.0,
+  "persona_metadata": {
+    "persona_id": "artery_v1.0",
+    "anthropomorphism_level": 0.15,
+    "training_dataset": "functional_neutral_corpus",
+    "training_steps": 2500,
+    "version": "1.0.0",
+    "created_at": "2026-04-21T00:00:00Z"
+  }
+}
