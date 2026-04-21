@@ -1,0 +1,44 @@
+{
+  "participant": {
+    "participant_id": "P001",
+    "name": "Arijit Singha Roy Chowdhury",
+    "email": "ariartry@gmail.com",
+    "whatsapp": "6290446955",
+    "age": 25,
+    "gender": "Male",
+    "country": "India",
+    "status": "University",
+    "study_group": "A",
+    "ai_type": "Relational AI Samara",
+    "day_progress": 5,
+    "has_onboarded": 1,
+    "is_disqualified": 0,
+    "last_login_date": "2026-04-21T06:15:00",
+    "pre_study_mind_experience": {
+      "panas": {"interested": 4, "distressed": 2},
+      "who5": {"cheerful": 3, "calm": 4}
+    },
+    "post_study_mind_experience": null,
+    "godspeed_results_json": null
+  },
+  "sessions": [
+    {
+      "session_id": 1,
+      "participant_id": "P001",
+      "day_number": 1,
+      "session_date_ist": "2026-04-17",
+      "status": "Completed",
+      "pre_vams_q1": 65, "pre_vams_q2": 30, "pre_vams_q3": 80,
+      "pre_vams_q4": 20, "pre_vams_q5": 70, "pre_vams_q6": 10,
+      "post_vams_q1": 45, "post_vams_q2": 40, "post_vams_q3": 75,
+      "post_vams_q4": 25, "post_vams_q5": 60, "post_vams_q6": 15,
+      "mandatory_time_seconds": 600,
+      "extra_time_seconds": 120,
+      "dismissed": 0
+    }
+  ],
+  "error_responses": {
+    "unauthorized": {"error": "Unauthorized access"},
+    "not_found": {"error": "Participant not found"}
+  }
+}
