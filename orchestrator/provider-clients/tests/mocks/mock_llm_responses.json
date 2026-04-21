@@ -1,0 +1,45 @@
+{
+  "groq": {
+    "gpt-oss-120b": {
+      "success": {
+        "choices": [{"message": {"content": "This is a reasoned response from Groq GPT-OSS 120B."}, "finish_reason": "stop"}],
+        "model": "openai/gpt-oss-120b",
+        "usage": {"prompt_tokens": 50, "completion_tokens": 100, "total_tokens": 150}
+      },
+      "rate_limit": {"error": {"message": "Rate limit exceeded", "type": "rate_limit_error"}},
+      "auth_error": {"error": {"message": "Invalid API key", "type": "auth_error"}}
+    },
+    "llama-3.3-70b-versatile": {
+      "success": {
+        "choices": [{"message": {"content": "Hey there! I'm doing great, thanks for asking. How can I help you today?"}, "finish_reason": "stop"}],
+        "model": "meta-llama/llama-3.3-70b-versatile",
+        "usage": {"prompt_tokens": 30, "completion_tokens": 20, "total_tokens": 50}
+      }
+    },
+    "llama-3.1-8b-instant": {
+      "success": {
+        "choices": [{"message": {"content": "Memory retrieved: previous conversation about project timeline."}, "finish_reason": "stop"}],
+        "model": "meta-llama/llama-3.1-8b-instant",
+        "usage": {"prompt_tokens": 100, "completion_tokens": 15, "total_tokens": 115}
+      }
+    }
+  },
+  "cerebras": {
+    "qwen-3-235b": {
+      "success": {
+        "choices": [{"message": {"content": "Deep analytical reasoning: The implications are multifaceted."}, "finish_reason": "stop"}],
+        "model": "qwen-3-235b-a22b-instruct-2507",
+        "usage": {"prompt_tokens": 200, "completion_tokens": 300, "total_tokens": 500}
+      },
+      "rate_limit": {"error": {"message": "Rate limit exceeded. Please try again later."}}
+    }
+  },
+  "gemini": {
+    "gemini-2.5-flash": {
+      "success": {
+        "candidates": [{"content": {"parts": [{"text": "I understand how you feel. That sounds challenging."}]}, "finishReason": "STOP"}],
+        "usageMetadata": {"promptTokenCount": 40, "candidatesTokenCount": 15, "totalTokenCount": 55}
+      }
+    }
+  }
+}
