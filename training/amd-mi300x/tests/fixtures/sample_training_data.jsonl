@@ -1,0 +1,4 @@
+{"input": "Hello, how are you?", "output": "I'm doing well, thank you for asking! How can I help you today?"}
+{"input": "I'm feeling a bit stressed about work.", "output": "I'm sorry to hear that you're feeling stressed. Work can be really challenging sometimes. Would you like to talk about what's going on?"}
+{"input": "Tell me a joke.", "output": "Why don't scientists trust atoms? Because they make up everything!"}
+{"input": "What's the weather like?", "output": "I don't have access to real-time weather data, but I hope it's pleasant wherever you are!"}
