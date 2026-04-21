@@ -1,0 +1,12 @@
+{
+  "actions": ["goto_kitchen", "open_fridge", "take_food", "eat"],
+  "context": {
+    "time_of_day": "morning",
+    "location": "home"
+  },
+  "expected_goals": {
+    "food": 0.65,
+    "water": 0.20,
+    "rest": 0.15
+  }
+}
