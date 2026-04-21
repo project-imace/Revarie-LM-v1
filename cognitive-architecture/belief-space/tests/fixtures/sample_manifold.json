@@ -1,0 +1,15 @@
+{
+  "description": "Sample points on a 2-sphere of radius 2.0 embedded in R^3",
+  "radius": 2.0,
+  "dimension": 3,
+  "points": [
+    { "id": "north_pole", "coords": [0.0, 0.0, 2.0] },
+    { "id": "south_pole", "coords": [0.0, 0.0, -2.0] },
+    { "id": "equator_0", "coords": [2.0, 0.0, 0.0] },
+    { "id": "equator_90", "coords": [0.0, 2.0, 0.0] }
+  ],
+  "geodesic_distances": {
+    "north_pole_to_equator": 3.1415926535,
+    "north_pole_to_south_pole": 6.283185307
+  }
+}
