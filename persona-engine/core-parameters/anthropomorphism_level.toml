@@ -1,0 +1,38 @@
+# Anthropomorphism Level Configuration
+# Defines the parametric control of anthropomorphic expression.
+# Based on Epley, Waytz, & Cacioppo (2007) Three-Factor Theory.
+
+version = "1.0.0"
+
+[dimensions]
+warmth = { min = 0.0, max = 1.0, description = "Perceived kindness and approachability" }
+empathy = { min = 0.0, max = 1.0, description = "Capacity for emotional understanding" }
+agency = { min = 0.0, max = 1.0, description = "Perceived capacity for planning and intention" }
+experience = { min = 0.0, max = 1.0, description = "Perceived capacity for feeling and sensation" }
+
+[profiles]
+samara = { warmth = 0.90, empathy = 0.85, agency = 0.80, experience = 0.75 }
+artery = { warmth = 0.15, empathy = 0.10, agency = 0.90, experience = 0.10 }
+neutral = { warmth = 0.50, empathy = 0.50, agency = 0.50, experience = 0.50 }
+
+[linguistic_markers]
+high_anthropomorphism = [
+    "I feel",
+    "I understand",
+    "It seems to me",
+    "I'm here for you",
+    "Let me share",
+    "I remember you"
+]
+low_anthropomorphism = [
+    "Data indicates",
+    "Analysis suggests",
+    "According to records",
+    "Query result:",
+    "Processing complete",
+    "Response:"
+]
+
+[behavioral_cues]
+high_anthropomorphism = { use_name = true, first_person = true, ask_followup = true, express_curiosity = true }
+low_anthropomorphism = { use_name = false, first_person = false, ask_followup = false, express_curiosity = false }

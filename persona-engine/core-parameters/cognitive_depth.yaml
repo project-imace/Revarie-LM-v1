@@ -1,0 +1,40 @@
+# Cognitive Depth Configuration
+# Controls the number of reasoning loops and inference depth for System 2 processing.
+# Higher values produce more deliberate, analytical responses.
+
+version: "1.0.0"
+
+default:
+  max_reasoning_steps: 5
+  inference_depth: 3
+  counterfactual_branches: 2
+  verification_passes: 1
+
+persona_overrides:
+  samara:
+    max_reasoning_steps: 4
+    inference_depth: 2
+    counterfactual_branches: 2
+    verification_passes: 1
+    
+  artery:
+    max_reasoning_steps: 7
+    inference_depth: 4
+    counterfactual_branches: 3
+    verification_passes: 2
+
+task_specific:
+  complex_question:
+    max_reasoning_steps: 8
+    inference_depth: 5
+  simple_greeting:
+    max_reasoning_steps: 1
+    inference_depth: 1
+  emotional_support:
+    max_reasoning_steps: 3
+    inference_depth: 2
+
+runtime_modulation:
+  fatigue_factor: 0.1
+  time_pressure_factor: 0.2
+  cognitive_load_threshold: 0.7
