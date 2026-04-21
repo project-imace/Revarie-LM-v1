@@ -1,0 +1,24 @@
+{
+  "buildCommand": "cd ../ui && npm install && npm run build",
+  "outputDirectory": "../ui/.next",
+  "devCommand": "cd ../ui && npm run dev",
+  "installCommand": "cd ../ui && npm install",
+  "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/lm-v1",
+      "destination": "/lm-v1"
+    },
+    {
+      "source": "/lm-v1/samara",
+      "destination": "/samara"
+    },
+    {
+      "source": "/lm-v1/artery",
+      "destination": "/artery"
+    }
+  ],
+  "env": {
+    "NEXT_PUBLIC_HF_SPACE_URL": "https://revarie-lm-v1-engine.hf.space"
+  }
+}

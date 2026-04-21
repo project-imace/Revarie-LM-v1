@@ -68,7 +68,7 @@ async fn main() -> anyhow::Result<()> {
         .layer(middleware_stack)
         .fallback(handler_404);
 
-    let addr = SocketAddr::from(([0, 0, 0, 0], 7860));
+    let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
     info!("Listening on {}", addr);
 
     let listener = tokio::net::TcpListener::bind(addr).await?;

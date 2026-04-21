@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  revarie-engine:
+    build:
+      context: ../..
+      dockerfile: deployment/docker/Dockerfile
+    ports:
+      - "7860:7860"
+    environment:
+      - VAULT_API_URL=${VAULT_API_URL}
+      - VAULT_API_KEY=${VAULT_API_KEY}
+      - VECTORIZE_API_URL=${VECTORIZE_API_URL}
+      - VECTORIZE_API_TOKEN=${VECTORIZE_API_TOKEN}
+      - GROQ_KEYS=${GROQ_KEYS}
+      - CEREBRAS_KEYS=${CEREBRAS_KEYS}
+      - GEMINI_KEYS=${GEMINI_KEYS}
+      - RUST_LOG=info
+    volumes:
+      - ../../cognitive-architecture:/app/cognitive-architecture
+      - ../../persona-engine:/app/persona-engine
+      - ../../orchestrator:/app/orchestrator
+    restart: unless-stopped
