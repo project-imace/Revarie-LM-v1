@@ -1,0 +1,56 @@
+name: Test Cognitive Core
+
+on:
+  push:
+    branches: [Production]
+    paths:
+      - 'cognitive-architecture/**'
+      - 'turing-machine/**'
+      - 'psychoanalytic-modules/**'
+      - 'theory-of-mind/**'
+  pull_request:
+    branches: [Production]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-cpp:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake build-essential ccache
+      - name: Build and test C++
+        run: |
+          cd cognitive-architecture
+          mkdir -p build && cd build
+          cmake .. -DBUILD_TESTS=ON
+          make -j$(nproc)
+          ctest --output-on-failure --parallel $(nproc)
+
+  test-rust:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Run Rust tests
+        run: |
+          cd cognitive-architecture
+          cargo test --release --workspace
+
+  test-lisp:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install SBCL
+        run: sudo apt-get update && sudo apt-get install -y sbcl
+      - name: Run Lisp tests
+        run: |
+          export CL_SOURCE_REGISTRY="$(pwd)/cognitive-architecture//"
+          sbcl --non-interactive \
+               --eval "(require :asdf)" \
+               --eval "(asdf:load-system :revarie-cognitive-architecture/tests)" \
+               --eval "(asdf:test-system :revarie-cognitive-architecture/tests)"
