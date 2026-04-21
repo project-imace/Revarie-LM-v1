@@ -18,16 +18,14 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-24.04
-    # Optional: ensure tests pass before deploying
-    # needs: [test-cognitive-core, test-persona-engine, test-orchestrator, test-integration]
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Push to Hub
+      - name: Install Hugging Face CLI
+        run: pip install huggingface-hub
+      - name: Upload to Space
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git remote add space https://huggingface.co/spaces/project-imace/revarie-lm-v1-engine
-          # Authenticate using token
-          git push --force https://project-imace:${HF_TOKEN}@huggingface.co/spaces/project-imace/revarie-lm-v1-engine HEAD:main
+          huggingface-cli upload project-imace/revarie-lm-v1-engine . \
+            --repo-type=space \
+            --space-sdk=docker

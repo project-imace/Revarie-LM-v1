@@ -4,7 +4,7 @@ on:
   push:
     branches: [Production]
   schedule:
-    - cron: '0 0 * * 0' # Run weekly on Sundays
+    - cron: '0 0 * * 0'
 
 jobs:
   analyze:
@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'cpp', 'python', 'javascript', 'typescript' ]
+        language: [ 'cpp', 'python', 'javascript', 'typescript', 'rust' ]
 
     steps:
       - name: Checkout repository
@@ -28,6 +28,10 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
+
+      - name: Setup Rust (if needed)
+        if: matrix.language == 'rust'
+        uses: dtolnay/rust-toolchain@stable
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@v3

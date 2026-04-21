@@ -21,11 +21,14 @@ jobs:
         with:
           python-version: '3.12'
           cache: 'pip'
+      - name: Install dependencies
+        run: |
+          cd orchestrator
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio
       - name: Run Python tests
         run: |
           cd orchestrator
-          pip install pytest pytest-asyncio
-          # Recursively find and run all pytest suites in orchestrator
           find . -type d -name "tests" -exec pytest {} -v \;
 
   test-rust-cpp:
@@ -36,7 +39,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - name: Run Rust tests
         run: cd orchestrator/api-gateway && cargo test --release
-      - name: Compile C++ Tests
+      - name: Compile and run C++ tests
         run: |
           cd orchestrator/api-key-vault/tests
           g++ -std=c++17 -DTEST_RATE_LIMIT_MONITOR -o test_rlm test_rate_limit_monitor.cpp

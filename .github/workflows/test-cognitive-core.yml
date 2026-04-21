@@ -39,7 +39,7 @@ jobs:
       - name: Run Rust tests
         run: |
           cd cognitive-architecture
-          cargo test --release --workspace
+          cargo test --release
 
   test-lisp:
     runs-on: ubuntu-24.04
@@ -49,8 +49,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y sbcl
       - name: Run Lisp tests
         run: |
-          export CL_SOURCE_REGISTRY="$(pwd)/cognitive-architecture//"
           sbcl --non-interactive \
-               --eval "(require :asdf)" \
-               --eval "(asdf:load-system :revarie-cognitive-architecture/tests)" \
-               --eval "(asdf:test-system :revarie-cognitive-architecture/tests)"
+               --eval "(load \"cognitive-architecture/revarie.asd\")" \
+               --eval "(asdf:test-system :revarie-cognitive-architecture/tests)" \
+               --eval "(quit)"
