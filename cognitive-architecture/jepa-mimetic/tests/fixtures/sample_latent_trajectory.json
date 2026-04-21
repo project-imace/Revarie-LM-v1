@@ -1,0 +1,42 @@
+{
+  "description": "Sample latent trajectory from a simple navigation task",
+  "latent_dim": 4,
+  "action_dim": 2,
+  "trajectory": [
+    {
+      "step": 0,
+      "observation": [1.0, 0.0, 0.5, -0.2],
+      "action": 0,
+      "next_observation": [0.8, 0.1, 0.4, -0.1],
+      "reward": 0.0
+    },
+    {
+      "step": 1,
+      "observation": [0.8, 0.1, 0.4, -0.1],
+      "action": 1,
+      "next_observation": [0.6, 0.3, 0.3, 0.1],
+      "reward": 1.0
+    },
+    {
+      "step": 2,
+      "observation": [0.6, 0.3, 0.3, 0.1],
+      "action": 0,
+      "next_observation": [0.5, 0.2, 0.2, 0.0],
+      "reward": 0.0
+    },
+    {
+      "step": 3,
+      "observation": [0.5, 0.2, 0.2, 0.0],
+      "action": 1,
+      "next_observation": [0.3, 0.4, 0.1, 0.2],
+      "reward": 1.0
+    }
+  ],
+  "hyperparameters": {
+    "learning_rate": 0.001,
+    "batch_size": 2,
+    "tau": 0.005,
+    "latent_dim": 4,
+    "action_dim": 2
+  }
+}
