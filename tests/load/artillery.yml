@@ -1,0 +1,43 @@
+# artillery.yml – Load testing configuration for Artillery.io
+config:
+  target: "https://revarie-lm-v1-engine.hf.space"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: "Warm up"
+    - duration: 300
+      arrivalRate: 20
+      name: "Sustained load"
+  processor: "./artillery-processor.js"
+  variables:
+    participant_id: "P{{ $randomNumber(1, 80) }}"
+    persona: "{{ $randomChoice(['samara', 'artery']) }}"
+
+scenarios:
+  - name: "Chat interaction"
+    flow:
+      - get:
+          url: "/health"
+      - think: 2
+      - post:
+          url: "/api/chat"
+          json:
+            participant_id: "{{ participant_id }}"
+            message: "{{ $randomString() }}"
+            persona: "{{ persona }}"
+          capture:
+            - json: "$.session_id"
+              as: "session_id"
+      - think: 5
+      - post:
+          url: "/api/chat"
+          json:
+            participant_id: "{{ participant_id }}"
+            message: "Follow up message"
+            persona: "{{ persona }}"
+            session_id: "{{ session_id }}"
+
+  - name: "Admin check"
+    flow:
+      - get:
+          url: "/api/admin/stats"

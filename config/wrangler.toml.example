@@ -1,0 +1,20 @@
+# =============================================================================
+# WRANGLER.TOML.EXAMPLE – Cloudflare Worker Configuration
+# =============================================================================
+# Copy to wrangler.toml and fill in your actual values.
+
+name = "revarie-vault-api"
+main = "src/index.js"
+compatibility_date = "2026-04-21"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "revarie-vault"
+database_id = "your-d1-database-id-here"
+
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+[[env.production.routes]]
+pattern = "revarie.imace.online/*"
+zone_name = "imace.online"
