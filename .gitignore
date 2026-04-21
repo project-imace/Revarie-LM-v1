@@ -127,3 +127,5 @@ yarn-error.log*
 # ============================================
 *.local
 *.user
+*.safetensors
+*.onnx
