@@ -1,113 +1,194 @@
-# Revarie LM v1.0 – Cognitive Emulation Research Instrument
+<h1 align="center">Revarie LM v1.0</h1>
+<h3 align="center">Cognitive Emulation Research Instrument</h3>
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![Cognitive Core Tests](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-cognitive-core.yml/badge.svg)](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-cognitive-core.yml)
-[![Python Ecosystem Tests](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-python-ecosystem.yml/badge.svg)](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-python-ecosystem.yml)
-[![UI Tests](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-ui.yml/badge.svg)](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-ui.yml)
+<p align="center">
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" />
+  </a>
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-cognitive-core.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-cognitive-core.yml/badge.svg" />
+  </a>
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-python-ecosystem.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-python-ecosystem.yml/badge.svg" />
+  </a>
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-ui.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-ui.yml/badge.svg" />
+  </a>
+</p>
 
-**Revarie LM v1.0** is a research-grade neuro-symbolic cognitive architecture developed by **Project IMACE**. It serves as a parametric instrument for investigating anthropomorphic reflection in language-based AI systems. The system powers a 14-day longitudinal study with two distinct personas:
+<p align="center">
+  <em>A research-grade neuro-symbolic cognitive architecture by <strong>Project IMACE</strong></em>
+</p>
 
-- **Samara**: High anthropomorphic reflection – warm, empathetic, relational.
-- **Artery 1.0**: Low anthropomorphic reflection – functional, precise, neutral.
+---
+
+## 🧬 Overview
+
+<p align="justify">
+<strong>Revarie LM v1.0</strong> is a parametric cognitive system designed to investigate 
+<strong>anthropomorphic reflection in language-based AI</strong>. It powers a controlled 
+<strong>14-day longitudinal study</strong> with two distinct personas:
+</p>
+
+<ul>
+  <li><strong>Samara</strong> → Warm, empathetic, high anthropomorphic reflection</li>
+  <li><strong>Artery 1.0</strong> → Functional, precise, low anthropomorphic reflection</li>
+</ul>
 
 ---
 
 ## 🏛️ Architecture Overview
 
-Revarie LM v1.0 is a **polyglot cognitive stack** spanning four languages:
+<p align="center"><strong>Polyglot Cognitive Stack</strong></p>
 
-| Layer | Language | Role |
-|-------|----------|------|
-| **API Gateway** | Rust (Axum) | High-performance HTTP server, auth, routing |
-| **Orchestrator** | Python (FastAPI) | Multi-model LLM coordination, memory management |
-| **Reasoning Core** | C++ (Crow) | POMDP, Bayesian inference, rebound mechanism |
-| **Symbolic Rules** | Common Lisp (SBCL) | Belief space, cognitive priors, meta-reasoning |
-| **Frontend** | TypeScript (Next.js) | Participant-facing chat interfaces |
+<table align="center">
+<tr>
+<th>Layer</th>
+<th>Language</th>
+<th>Role</th>
+</tr>
+<tr>
+<td><strong>API Gateway</strong></td>
+<td>Rust (Axum)</td>
+<td>High-performance HTTP server, auth, routing</td>
+</tr>
+<tr>
+<td><strong>Orchestrator</strong></td>
+<td>Python (FastAPI)</td>
+<td>Multi-model coordination, memory management</td>
+</tr>
+<tr>
+<td><strong>Reasoning Core</strong></td>
+<td>C++ (Crow)</td>
+<td>POMDP, Bayesian inference, rebound mechanisms</td>
+</tr>
+<tr>
+<td><strong>Symbolic Rules</strong></td>
+<td>Common Lisp (SBCL)</td>
+<td>Belief space, cognitive priors, meta-reasoning</td>
+</tr>
+<tr>
+<td><strong>Frontend</strong></td>
+<td>TypeScript (Next.js)</td>
+<td>Participant-facing interface</td>
+</tr>
+</table>
 
-All services are containerized and run under `supervisord`, exposed via Nginx on a single Hugging Face Space.
+<p align="center">
+All services are containerized via Docker, orchestrated with supervisord, and exposed through Nginx.
+</p>
 
 ---
 
 ## 🧠 Theoretical Foundations
 
-The architecture integrates:
-
-- **Turing's Model of Mind** (Sprevak, 2017) – strong vs. weak modelling
-- **Global Workspace Theory** (Baars, 1988; Dehaene, 2014)
-- **Active Inference / Free Energy Principle** (Friston, 2010)
-- **Dual-Process Theory** (Kahneman, 2011)
-- **Bayesian Theory of Mind** (Baker, Saxe, Tenenbaum, 2009)
-- **Piaget's Constructivism**
-- **Freudian / Jungian Psychoanalytic Structures** (Id, Ego, Superego; cognitive functions)
-- **Neuromodulatory Emotions** (Larue et al., 2013; Fellous, 1999)
+<ul>
+  <li><strong>Turing’s Model of Mind</strong> – Strong vs Weak modelling</li>
+  <li><strong>Global Workspace Theory</strong></li>
+  <li><strong>Active Inference / Free Energy Principle</strong></li>
+  <li><strong>Dual-Process Theory</strong></li>
+  <li><strong>Bayesian Theory of Mind</strong></li>
+  <li><strong>Piaget’s Constructivism</strong></li>
+  <li><strong>Psychoanalytic Structures</strong> – Freudian & Jungian</li>
+  <li><strong>Neuromodulatory Emotions</strong></li>
+</ul>
 
 ---
 
 ## 📦 Repository Structure
 
-```text
+<pre>
 revarie-lm-v1/
-├── .github/                    # CI/CD workflows
-├── turing-machine/             # Physical Symbol System
-├── cognitive-architecture/     # Dual-process, GWT, Active Inference, Belief Space, Rebound, POMDP, JEPA
-├── memory-systems/             # Sensory, Working, Episodic, Semantic, Procedural, Consolidation
-├── theory-of-mind/             # Bayesian Inverse Planning, ToMNet
-├── psychoanalytic-modules/     # Id, Ego, Superego, Jungian functions
-├── persona-engine/             # Core parameters, Affective modulator, Social interaction, Narrative self, Persona shaper, Safety guardrail, Participant context
-├── orchestrator/               # API key vault, Model router, Provider clients, API gateway, Task scheduler
-├── rag-pipeline/               # Retriever, Re-ranker, Context assembler
-├── training/                   # AMD MI300X LoRA training, Kaggle nightly, Colab fallback
-├── deployment/                 # Docker, Vercel, Hugging Face, cron
-├── ui/                         # Next.js TypeScript frontend
-├── config/                     # Environment templates
-└── tests/                      # Cross-module integration & load tests
-```
+├── .github/
+├── turing-machine/
+├── cognitive-architecture/
+├── memory-systems/
+├── theory-of-mind/
+├── psychoanalytic-modules/
+├── persona-engine/
+├── orchestrator/
+├── rag-pipeline/
+├── training/
+├── deployment/
+├── ui/
+├── config/
+└── tests/
+</pre>
 
 ---
 
-## 🚀 Deployment (Zero-Cost Stack)
+## 🚀 Deployment Stack
 
-| Component | Platform | Purpose |
-|-----------|----------|---------|
-| **Backend** | Hugging Face Spaces (Docker) | Runs all services in one container |
-| **Frontend** | Vercel | Next.js static + SSR |
-| **Structured DB** | Cloudflare D1 | Participant data, VAMS, session logs |
-| **Vector DB** | Cloudflare Vectorize | Episodic memory embeddings |
-| **LLM APIs** | Groq (8 keys), Cerebras (8 keys), Gemini (2 keys) | Neural substrate |
-| **Nightly Training** | Kaggle (GPU) | Daily consolidation & LoRA fine-tuning |
-| **Heavy Training** | DigitalOcean AMD MI300X | One-time persona LoRA training |
-| **Keep-Alive** | cron-job.org | Prevents HF Space sleep |
+<table>
+<tr>
+<th>Component</th>
+<th>Platform</th>
+<th>Purpose</th>
+</tr>
+<tr>
+<td>Backend</td>
+<td>Hugging Face Spaces</td>
+<td>Containerized services</td>
+</tr>
+<tr>
+<td>Frontend</td>
+<td>Vercel</td>
+<td>Next.js UI</td>
+</tr>
+<tr>
+<td>Structured DB</td>
+<td>Cloudflare D1</td>
+<td>Session & participant data</td>
+</tr>
+<tr>
+<td>Vector DB</td>
+<td>Cloudflare Vectorize</td>
+<td>Embeddings</td>
+</tr>
+<tr>
+<td>Training</td>
+<td>Kaggle / MI300X</td>
+<td>LoRA fine-tuning</td>
+</tr>
+<tr>
+<td>Keep Alive</td>
+<td>cron-job.org</td>
+<td>Prevent sleep</td>
+</tr>
+</table>
 
 ---
 
 ## 🔧 Quick Start
 
 ```bash
-# Clone the repository
 git clone https://github.com/project-imace/revarie-lm-v1.git
 cd revarie-lm-v1
 
-# Build all services
 cd cognitive-architecture && make build
-
-# Run tests
 make test-all
 
-# Start locally (Docker)
 docker-compose -f deployment/docker/docker-compose.yml up
-```
+ ```
+
 
 ---
 
-## 📄 License
+📄 License
 
-Apache 2.0 – see [LICENSE](LICENSE)
+Apache 2.0 – see LICENSE
 
-## 🤝 Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
-*Project IMACE – Revarie LM V1*  
+🤝 Contributing
+
+Contributions are welcome. See CONTRIBUTING.md
+
+
+---
+
+<p align="center">
+<strong>Project IMACE</strong><br/>
 research@imace.online
+</p>
