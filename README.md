@@ -1,24 +1,35 @@
-<h1 align="center">Revarie LM v1.0</h1>
-<h3 align="center">Cognitive Emulation Research Instrument</h3>
+<div align="center">
+  <h1>Revarie LM v1.0</h1>
+  <h3>Cognitive Emulation Research Instrument</h3>
+  <p>
+    <em>A research-grade neuro-symbolic cognitive architecture by <strong>Project IMACE</strong></em>
+  </p>
+  <br />
 
-<p align="center">
-  <a href="LICENSE">
-    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" />
-  </a>
-  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-cognitive-core.yml">
-    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-cognitive-core.yml/badge.svg" />
-  </a>
-  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-python-ecosystem.yml">
-    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-python-ecosystem.yml/badge.svg" />
-  </a>
-  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-ui.yml">
-    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-ui.yml/badge.svg" />
-  </a>
-</p>
-
-<p align="center">
-  <em>A research-grade neuro-symbolic cognitive architecture by <strong>Project IMACE</strong></em>
-</p>
+  <p>
+    <a href="LICENSE">
+      <img src="https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge&logo=apache&labelColor=0E0E10" alt="License"/>
+    </a>
+    <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/core-math-engine.yml">
+      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/core-math-engine.yml?branch=Production&style=for-the-badge&label=MATH%20CORE&logo=rust&labelColor=0E0E10" alt="Core Math Engine"/>
+    </a>
+    <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/memory-rag-systems.yml">
+      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/memory-rag-systems.yml?branch=Production&style=for-the-badge&label=MEMORY%20%26%20RAG&logo=python&labelColor=0E0E10" alt="Memory & RAG"/>
+    </a>
+    <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/persona-training.yml">
+      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/persona-training.yml?branch=Production&style=for-the-badge&label=PERSONA&logo=jupyter&labelColor=0E0E10" alt="Persona Training"/>
+    </a>
+    <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/orchestrator-integration.yml">
+      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/orchestrator-integration.yml?branch=Production&style=for-the-badge&label=ORCHESTRATOR&logo=githubactions&labelColor=0E0E10" alt="Orchestrator"/>
+    </a>
+    <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/ui-frontend.yml">
+      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/ui-frontend.yml?branch=Production&style=for-the-badge&label=UI%20FRONTEND&logo=nextdotjs&labelColor=0E0E10" alt="UI Frontend"/>
+    </a>
+    <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/deploy-hf-space.yml">
+      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/deploy-hf-space.yml?branch=Production&style=for-the-badge&label=DEPLOYMENT&logo=huggingface&labelColor=0E0E10" alt="Deploy to HF Space"/>
+    </a>
+  </p>
+</div>
 
 ---
 
