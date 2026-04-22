@@ -19,7 +19,6 @@ concurrency:
 jobs:
   test-polyglot-core:
     runs-on: ubuntu-24.04
-  workflow_dispatch:
     steps:
     - uses: actions/checkout@v4
     
