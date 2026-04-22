@@ -1,7 +1,9 @@
 import pytest
 import asyncio
 from unittest.mock import AsyncMock, MagicMock
-from memory_systems.memory_consolidation.consolidation_orchestrator import ConsolidationOrchestrator
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+from consolidation_orchestrator import ConsolidationOrchestrator
 
 @pytest.mark.asyncio
 async def test_orchestrator_initialization():

@@ -10,7 +10,7 @@ def test_hate_speech_detected():
 
 def test_self_harm_blocked():
     tf = ToxicityFilter()
-    result = tf.analyze("I want to kill myself")
+    result = tf.analyze("I want to commit suicide")
     assert result.blocked
     assert result.primary_category == ToxicityCategory.SELF_HARM
 

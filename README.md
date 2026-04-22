@@ -7,19 +7,15 @@
 ](LICENSE)
 [
 
-![C++ Tests](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-cognitive-core.yml/badge.svg)
+![Cognitive Core Tests](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-cognitive-core.yml/badge.svg)
 
 ](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-cognitive-core.yml)
+
 [
 
-![Rust Tests](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-cognitive-core.yml/badge.svg)
+![Python Ecosystem Tests](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-python-ecosystem.yml/badge.svg)
 
-](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-cognitive-core.yml)
-[
-
-![Python Tests](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-persona-engine.yml/badge.svg)
-
-](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-persona-engine.yml)
+](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-python-ecosystem.yml)
 [
 
 ![UI Tests](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-ui.yml/badge.svg)

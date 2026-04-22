@@ -1,3 +1,4 @@
+import aiohttp
 import pytest
 import asyncio
 from unittest.mock import AsyncMock, MagicMock, patch
@@ -40,20 +41,29 @@ async def test_rate_limit_triggers_retry():
     client.timeout = aiohttp.ClientTimeout(total=1)
 
     call_count = 0
-    async def mock_post(*args, **kwargs):
+
+    class MockResponseContextManager:
+        def __init__(self, status, json_data=None):
+            self.status = status
+            self.json_data = json_data
+            self.resp = MagicMock()
+            self.resp.status = status
+            if json_data:
+                self.resp.json = AsyncMock(return_value=json_data)
+        async def __aenter__(self):
+            return self.resp
+        async def __aexit__(self, exc_type, exc, tb):
+            pass
+
+    def mock_post(*args, **kwargs):
         nonlocal call_count
         call_count += 1
         if call_count == 1:
-            resp = MagicMock()
-            resp.status = 429
-            return resp
+            return MockResponseContextManager(429)
         else:
-            resp = MagicMock()
-            resp.status = 200
-            resp.json = AsyncMock(return_value={
+            return MockResponseContextManager(200, {
                 "choices": [{"message": {"content": "Success"}, "finish_reason": "stop"}]
             })
-            return resp
 
     with patch("aiohttp.ClientSession.post", new=mock_post):
         response = await client.chat([{"role": "user", "content": "Hi"}], "test-model", retries=2)

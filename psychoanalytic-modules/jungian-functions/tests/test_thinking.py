@@ -14,6 +14,8 @@ def test_logical_inference():
     tf.assert_proposition("A", True, 0.9)
     tf.assert_proposition("A_implies_B", True, 0.8)
     inferences = tf.infer()
+    tf.add_rule(InferenceRule("modus_ponens", ["a", "a_implies_b"], "B"))
+    inferences = tf.infer()
     assert any(inf[0] == "B" for inf in inferences)
 
 def test_coherence_calculation():

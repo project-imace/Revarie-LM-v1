@@ -43,8 +43,8 @@ class DriveState:
 
 @dataclass
 class Impulse:
-    id: str = field(default_factory=lambda: f"imp_{int(time.time()*1000)}")
     primary_drive: Drive
+    id: str = field(default_factory=lambda: f"imp_{int(time.time()*1000)}")
     secondary_drives: List[Drive] = field(default_factory=list)
     drive_vector: np.ndarray = field(default_factory=lambda: np.zeros(6))
     content: str = ""
@@ -52,7 +52,6 @@ class Impulse:
     valence: float = 0.0
     timestamp: float = field(default_factory=time.time)
     raw_activation: float = 0.0
-
     def to_dict(self) -> Dict[str, Any]:
         return {
             "id": self.id,

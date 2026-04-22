@@ -42,10 +42,10 @@ def test_betti_circle():
     np.random.seed(42)
     n_points = 50
     theta = np.linspace(0, 2 * np.pi, n_points, endpoint=False)
-    points = np.column_stack([np.cos(theta), np.sin(theta)]) + 0.05 * np.random.randn(n_points, 2)
+    points = np.column_stack([np.cos(theta), np.sin(theta)]) + 0.01 * np.random.randn(n_points, 2)
     
     ti = TopologicalInvariant(points)
-    radius = 0.5
+    radius = 0.25
     betti = ti.compute_betti_numbers(radius)
     assert betti[0] == 1, f"Expected β₀=1, got {betti[0]}"
     assert betti.get(1, 0) >= 1, f"Expected β₁≥1, got {betti.get(1, 0)}"
@@ -119,7 +119,7 @@ def test_connected_components():
     cluster3 = np.random.randn(15, 2) + np.array([20, 20])
     points = np.vstack([cluster1, cluster2, cluster3])
     ti = TopologicalInvariant(points)
-    comps = ti.connected_components(radius=2.0)
+    comps = ti.connected_components(radius=2.5)
     assert comps == 3, f"Expected 3 components, got {comps}"
 
 

@@ -1,3 +1,4 @@
+import pytest
 """
 test_rag_pipeline.py – End‑to‑end RAG pipeline integration test
 """
@@ -6,6 +7,7 @@ import asyncio
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
+@pytest.mark.asyncio
 async def test_full_rag_flow():
     """Simulate complete RAG pipeline: retrieve → rerank → prompt → generate."""
     # Mock components
