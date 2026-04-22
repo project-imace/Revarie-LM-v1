@@ -1,0 +1,130 @@
+# GitHub Issue Labels for Revarie LM v1.0
+# These labels help organize issues by priority, type, module, and status.
+
+# =============================================================================
+# PRIORITY LABELS
+# =============================================================================
+- name: "priority: critical"
+  color: "b60205"
+  description: "Must be fixed immediately - blocking deployment or study"
+
+- name: "priority: high"
+  color: "d93f0b"
+  description: "Should be fixed before next release"
+
+- name: "priority: medium"
+  color: "fbca04"
+  description: "Fix when possible"
+
+- name: "priority: low"
+  color: "0e8a16"
+  description: "Nice to have, not urgent"
+
+# =============================================================================
+# TYPE LABELS
+# =============================================================================
+- name: "type: bug"
+  color: "d73a4a"
+  description: "Something isn't working correctly"
+
+- name: "type: feature"
+  color: "0075ca"
+  description: "New functionality or enhancement"
+
+- name: "type: documentation"
+  color: "0075ca"
+  description: "Improvements or additions to documentation"
+
+- name: "type: refactor"
+  color: "5319e7"
+  description: "Code improvement without changing behavior"
+
+- name: "type: test"
+  color: "5319e7"
+  description: "Adding or updating tests"
+
+- name: "type: ci/cd"
+  color: "f9d0c4"
+  description: "Continuous integration or deployment changes"
+
+- name: "type: research"
+  color: "c5def5"
+  description: "Research-related discussion or exploration"
+
+# =============================================================================
+# MODULE LABELS
+# =============================================================================
+- name: "module: cognitive-architecture"
+  color: "1d76db"
+  description: "Dual-process, GWT, active inference, belief space, POMDP"
+
+- name: "module: persona-engine"
+  color: "b0e0e6"
+  description: "Core parameters, affective modulator, social interaction, narrative self"
+
+- name: "module: memory-systems"
+  color: "fef2c0"
+  description: "Sensory, working, episodic, semantic, procedural memory"
+
+- name: "module: theory-of-mind"
+  color: "c2e0c6"
+  description: "Bayesian inverse planning, ToMNet"
+
+- name: "module: psychoanalytic"
+  color: "e4b4c2"
+  description: "Id, Ego, Superego, Jungian functions"
+
+- name: "module: orchestrator"
+  color: "d4c5f9"
+  description: "API key vault, model router, provider clients, API gateway"
+
+- name: "module: rag-pipeline"
+  color: "f9d0c4"
+  description: "Retriever, re-ranker, context assembler"
+
+- name: "module: ui"
+  color: "fbca04"
+  description: "Next.js frontend, chat interfaces"
+
+- name: "module: training"
+  color: "c5def5"
+  description: "AMD MI300X, Kaggle nightly, LoRA adapters"
+
+- name: "module: deployment"
+  color: "d4c5f9"
+  description: "Docker, Vercel, Hugging Face, cron jobs"
+
+- name: "module: turing-machine"
+  color: "1d76db"
+  description: "Physical symbol system, Turing tape"
+
+# =============================================================================
+# STATUS LABELS
+# =============================================================================
+- name: "status: needs-triage"
+  color: "e99695"
+  description: "New issue that needs review"
+
+- name: "status: in-progress"
+  color: "fbca04"
+  description: "Currently being worked on"
+
+- name: "status: blocked"
+  color: "b60205"
+  description: "Waiting on something else"
+
+- name: "status: ready-for-review"
+  color: "0e8a16"
+  description: "Completed and awaiting review"
+
+- name: "status: wontfix"
+  color: "cccccc"
+  description: "This will not be worked on"
+
+- name: "status: duplicate"
+  color: "cccccc"
+  description: "This issue or pull request already exists"
+
+- name: "status: good first issue"
+  color: "7057ff"
+  description: "Good for newcomers"
