@@ -1,207 +1,63 @@
-<h1 align="center">Revarie LM v1.0</h1>
-<h3 align="center">Cognitive Emulation Research Instrument</h3>
-
-<p align="center">
-  <em>A research-grade neuro-symbolic cognitive architecture by <strong>Project IMACE</strong></em>
-</p>
-
-<p align="center">
-  <a href="LICENSE">
-    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" />
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/core-math-engine.yml">
-    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/core-math-engine.yml/badge.svg" />
-  </a>
-  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/memory-rag-systems.yml">
-    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/memory-rag-systems.yml/badge.svg" />
-  </a>
-  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/persona-training.yml">
-    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/persona-training.yml/badge.svg" />
-  </a>
-  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/orchestrator-integration.yml">
-    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/orchestrator-integration.yml/badge.svg" />
-  </a>
-  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/ui-frontend.yml">
-    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/ui-frontend.yml/badge.svg" />
-  </a>
-  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/deploy-hf-space.yml">
-    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/deploy-hf-space.yml/badge.svg" />
-  </a>
-</p>
-
+---
+title: Revarie LM v1.0 Cognitive Engine
+emoji: 🧠
+colorFrom: gray
+colorTo: blue
+sdk: docker
+pinned: true
+license: apache-2.0
 ---
 
+# Revarie LM v1.0 – Cognitive Emulation Engine
 
-## 🧬 Overview
+This Space hosts the complete neuro‑symbolic cognitive architecture for **Project IMACE: Revarie LM v1.0**.
 
-<p align="justify">
-<strong>Revarie LM v1.0</strong> is a parametric cognitive system designed to investigate 
-<strong>anthropomorphic reflection in language-based AI</strong>. It powers a controlled 
-<strong>14-day longitudinal study</strong> with two distinct personas:
-</p>
+## Architecture
 
-<ul>
-  <li><strong>Samara</strong> → Warm, empathetic, high anthropomorphic reflection</li>
-  <li><strong>Artery 1.0</strong> → Functional, precise, low anthropomorphic reflection</li>
-</ul>
+The Docker container runs four coordinated services:
 
----
+| Service | Language | Port | Role |
+|---------|----------|------|------|
+| API Gateway | Rust (Axum) | 3000 | Main HTTP server, routing, auth |
+| Orchestrator | Python (FastAPI) | 8000 | Multi‑model LLM coordination, memory |
+| Reasoner | C++ (Crow) | 9000 | POMDP, Bayesian inference, rebound |
+| Symbolic | Common Lisp (SBCL) | – | Belief space, cognitive rules |
 
-## 🏛️ Architecture Overview
+All services are managed by `supervisord` and exposed via `nginx` on port `7860`.
 
-<p align="center"><strong>Polyglot Cognitive Stack</strong></p>
+## Personas
 
-<table align="center">
-<tr>
-<th>Layer</th>
-<th>Language</th>
-<th>Role</th>
-</tr>
-<tr>
-<td><strong>API Gateway</strong></td>
-<td>Rust (Axum)</td>
-<td>High-performance HTTP server, auth, routing</td>
-</tr>
-<tr>
-<td><strong>Orchestrator</strong></td>
-<td>Python (FastAPI)</td>
-<td>Multi-model coordination, memory management</td>
-</tr>
-<tr>
-<td><strong>Reasoning Core</strong></td>
-<td>C++ (Crow)</td>
-<td>POMDP, Bayesian inference, rebound mechanisms</td>
-</tr>
-<tr>
-<td><strong>Symbolic Rules</strong></td>
-<td>Common Lisp (SBCL)</td>
-<td>Belief space, cognitive priors, meta-reasoning</td>
-</tr>
-<tr>
-<td><strong>Frontend</strong></td>
-<td>TypeScript (Next.js)</td>
-<td>Participant-facing interface</td>
-</tr>
-</table>
+- **Samara**: High anthropomorphic reflection (warm, empathetic, relational)
+- **Artery 1.0**: Low anthropomorphic reflection (functional, neutral, precise)
 
-<p align="center">
-All services are containerized via Docker, orchestrated with supervisord, and exposed through Nginx.
-</p>
+## Endpoints
 
----
+| Path | Method | Description |
+|------|--------|-------------|
+| `/health` | GET | Health check |
+| `/api/chat` | POST | Send chat message |
+| `/api/admin/stats` | GET | System statistics |
 
-## 🧠 Theoretical Foundations
+## Environment Variables
 
-<ul>
-  <li><strong>Turing’s Model of Mind</strong> – Strong vs Weak modelling</li>
-  <li><strong>Global Workspace Theory</strong></li>
-  <li><strong>Active Inference / Free Energy Principle</strong></li>
-  <li><strong>Dual-Process Theory</strong></li>
-  <li><strong>Bayesian Theory of Mind</strong></li>
-  <li><strong>Piaget’s Constructivism</strong></li>
-  <li><strong>Psychoanalytic Structures</strong> – Freudian & Jungian</li>
-  <li><strong>Neuromodulatory Emotions</strong></li>
-</ul>
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `VAULT_API_URL` | Yes | Cloudflare D1 Worker URL |
+| `VAULT_API_KEY` | Yes | D1 API key |
+| `VECTORIZE_API_URL` | Yes | Cloudflare Vectorize URL |
+| `VECTORIZE_API_TOKEN` | Yes | Vectorize token |
+| `GROQ_KEYS` | Yes | Comma‑separated Groq keys |
+| `CEREBRAS_KEYS` | Yes | Comma‑separated Cerebras keys |
+| `GEMINI_KEYS` | Yes | Comma‑separated Gemini keys |
 
----
+## Deployment
 
-## 📦 Repository Structure
+This Space is automatically rebuilt when changes are pushed to the `Production` branch of the [GitHub repository](https://github.com/project-imace/revarie-lm-v1).
 
-<pre>
-revarie-lm-v1/
-├── .github/
-├── turing-machine/
-├── cognitive-architecture/
-├── memory-systems/
-├── theory-of-mind/
-├── psychoanalytic-modules/
-├── persona-engine/
-├── orchestrator/
-├── rag-pipeline/
-├── training/
-├── deployment/
-├── ui/
-├── config/
-└── tests/
-</pre>
+## Research
 
----
+Revarie LM v1.0 is part of Project IMACE (Integrated Modular Architecture for Cognitive Emulation). It investigates whether structured cognitive emulation can produce measurable psychological consequences in human subjects.
 
-## 🚀 Deployment Stack
-
-<table>
-<tr>
-<th>Component</th>
-<th>Platform</th>
-<th>Purpose</th>
-</tr>
-<tr>
-<td>Backend</td>
-<td>Hugging Face Spaces</td>
-<td>Containerized services</td>
-</tr>
-<tr>
-<td>Frontend</td>
-<td>Vercel</td>
-<td>Next.js UI</td>
-</tr>
-<tr>
-<td>Structured DB</td>
-<td>Cloudflare D1</td>
-<td>Session & participant data</td>
-</tr>
-<tr>
-<td>Vector DB</td>
-<td>Cloudflare Vectorize</td>
-<td>Embeddings</td>
-</tr>
-<tr>
-<td>Training</td>
-<td>Kaggle / MI300X</td>
-<td>LoRA fine-tuning</td>
-</tr>
-<tr>
-<td>Keep Alive</td>
-<td>cron-job.org</td>
-<td>Prevent sleep</td>
-</tr>
-</table>
-
----
-
-## 🔧 Quick Start
-
-```bash
-git clone https://github.com/project-imace/revarie-lm-v1.git
-cd revarie-lm-v1
-
-cd cognitive-architecture && make build
-make test-all
-
-docker-compose -f deployment/docker/docker-compose.yml up
- ```
-
-
----
-
-📄 License
-
-Apache 2.0 – see LICENSE
-
-
----
-
-🤝 Contributing
-
-Contributions are welcome. See CONTRIBUTING.md
-
-
----
-
-<p align="center">
-<strong>Project IMACE</strong><br/>
-research@imace.online
-</p>
+**Principal Investigator:** Project IMACE Research Team  
+**Contact:** research@imace.online  
+**License:** Apache 2.0
