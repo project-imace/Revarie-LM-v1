@@ -8,28 +8,32 @@
 
   <p>
     <a href="LICENSE">
-      <img src="https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge&logo=apache&labelColor=0E0E10" alt="License"/>
+      <img src="https://img.shields.io/badge/License-Apache_2.0-blue?style=plastic&logo=apache&labelColor=0E0E10" alt="License"/>
     </a>
     <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/core-math-engine.yml">
-      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/core-math-engine.yml?branch=Production&style=for-the-badge&label=MATH%20CORE&logo=rust&labelColor=0E0E10" alt="Core Math Engine"/>
+      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/core-math-engine.yml?branch=Production&style=plastic&label=Math%20Core&logo=rust&labelColor=0E0E10" alt="Core Math Engine"/>
     </a>
     <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/memory-rag-systems.yml">
-      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/memory-rag-systems.yml?branch=Production&style=for-the-badge&label=MEMORY%20%26%20RAG&logo=python&labelColor=0E0E10" alt="Memory & RAG"/>
+      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/memory-rag-systems.yml?branch=Production&style=plastic&label=Memory%20%26%20RAG&logo=python&labelColor=0E0E10" alt="Memory & RAG"/>
     </a>
     <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/persona-training.yml">
-      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/persona-training.yml?branch=Production&style=for-the-badge&label=PERSONA&logo=jupyter&labelColor=0E0E10" alt="Persona Training"/>
+      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/persona-training.yml?branch=Production&style=plastic&label=Persona&logo=jupyter&labelColor=0E0E10" alt="Persona Training"/>
     </a>
+    <br />
     <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/orchestrator-integration.yml">
-      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/orchestrator-integration.yml?branch=Production&style=for-the-badge&label=ORCHESTRATOR&logo=githubactions&labelColor=0E0E10" alt="Orchestrator"/>
+      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/orchestrator-integration.yml?branch=Production&style=plastic&label=Orchestrator&logo=githubactions&labelColor=0E0E10" alt="Orchestrator"/>
     </a>
     <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/ui-frontend.yml">
-      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/ui-frontend.yml?branch=Production&style=for-the-badge&label=UI%20FRONTEND&logo=nextdotjs&labelColor=0E0E10" alt="UI Frontend"/>
+      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/ui-frontend.yml?branch=Production&style=plastic&label=UI%20Frontend&logo=nextdotjs&labelColor=0E0E10" alt="UI Frontend"/>
     </a>
     <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/deploy-hf-space.yml">
-      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/deploy-hf-space.yml?branch=Production&style=for-the-badge&label=DEPLOYMENT&logo=huggingface&labelColor=0E0E10" alt="Deploy to HF Space"/>
+      <img src="https://img.shields.io/github/actions/workflow/status/project-imace/revarie-lm-v1/deploy-hf-space.yml?branch=Production&style=plastic&label=Deployment&logo=huggingface&labelColor=0E0E10" alt="Deploy to HF Space"/>
     </a>
   </p>
 </div>
+
+---
+
 
 ---
 
