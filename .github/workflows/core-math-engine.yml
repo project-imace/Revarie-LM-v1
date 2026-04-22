@@ -52,7 +52,7 @@ jobs:
 
     - name: Python Test (Pytest Native Discovery)
       run: |
-        pip install pytest pytest-asyncio numpy scipy
+        pip install pytest pytest-asyncio numpy scipy torch networkx hypothesis
         pytest cognitive-architecture/ turing-machine/ theory-of-mind/ psychoanalytic-modules/ -v --tb=short
 
     - name: Lisp Test (Strict ASDF)
