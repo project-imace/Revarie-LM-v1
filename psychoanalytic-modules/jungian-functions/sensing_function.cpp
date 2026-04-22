@@ -67,12 +67,40 @@ public:
         double intensity_weight = 0.3;     // Weight for stimulus intensity
     };
 
-    explicit SensingFunction(const std::string& name = "Sensing", Config config = Config{})
-        : name_(name), config_(std::move(config)) {}
+    SensingFunction() : name_("Sensing"), config_({}) {}
+    explicit SensingFunction(const std::string& name, Config config) : name_(name), config_(std::move(config)) {}
+    explicit SensingFunction(const std::string& name = "Sensing") : name_(name), config_({}) {}
 
     /**
      * Perceive and record a concrete sensory detail.
      */
+    double compute_similarity(const SensoryDetail& a, const SensoryDetail& b) const {
+        if (a.modality != b.modality) return 0.0;
+        if (a.features.empty() || b.features.empty()) return 0.0;
+        
+        double dot = 0.0, norm_a = 0.0, norm_b = 0.0;
+        for (const auto& [k, v] : a.features) {
+            auto it = b.features.find(k);
+            if (it != b.features.end()) {
+                dot += v * it->second;
+            }
+            norm_a += v * v;
+        }
+        for (const auto& [_, v] : b.features) {
+            norm_b += v * v;
+        }
+        
+        if (norm_a < 1e-9 || norm_b < 1e-9) return 0.0;
+        return dot / (std::sqrt(norm_a) * std::sqrt(norm_b));
+    }
+
+    auto find_similar(const SensoryDetail& target, double threshold = 0.7) {
+        return std::find_if(details_.begin(), details_.end(),
+                            [&](const SensoryDetail& existing) {
+                                return compute_similarity(target, existing) > threshold;
+                            });
+    }
+
     std::string perceive(const std::string& description,
                          SensoryModality modality = SensoryModality::VISUAL,
                          double intensity = 0.5,
@@ -231,32 +259,9 @@ private:
         detail.salience = std::clamp(detail.salience, 0.0, 1.0);
     }
 
-    double compute_similarity(const SensoryDetail& a, const SensoryDetail& b) const {
-        if (a.modality != b.modality) return 0.0;
-        if (a.features.empty() || b.features.empty()) return 0.0;
-        
-        double dot = 0.0, norm_a = 0.0, norm_b = 0.0;
-        for (const auto& [k, v] : a.features) {
-            auto it = b.features.find(k);
-            if (it != b.features.end()) {
-                dot += v * it->second;
-            }
-            norm_a += v * v;
-        }
-        for (const auto& [_, v] : b.features) {
-            norm_b += v * v;
-        }
-        
-        if (norm_a < 1e-9 || norm_b < 1e-9) return 0.0;
-        return dot / (std::sqrt(norm_a) * std::sqrt(norm_b));
-    }
 
-    auto find_similar(const SensoryDetail& target, double threshold = 0.7) {
-        return std::find_if(details_.begin(), details_.end(),
-                            [&](const SensoryDetail& existing) {
-                                return compute_similarity(target, existing) > threshold;
-                            });
-    }
+
+
 
     void evict_lowest_salience() {
         auto lowest = std::min_element(details_.begin(), details_.end(),
