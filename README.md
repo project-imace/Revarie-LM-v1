@@ -1,44 +1,39 @@
-<div align="center">
-  <h1>Revarie LM v1.0</h1>
-  <h3>Cognitive Emulation Research Instrument</h3>
-  <p>
-    <em>A research-grade neuro-symbolic cognitive architecture by <strong>Project IMACE</strong></em>
-  </p>
-  
-  <p>
-    <a href="LICENSE">
-      <img src="https://img.shields.io/badge/License-Apache_2.0-blue?style=flat-square" alt="License"/>
-    </a>
-  </p>
-  <br />
+<h1 align="center">Revarie LM v1.0</h1>
+<h3 align="center">Cognitive Emulation Research Instrument</h3>
 
-  <p>
-    <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/core-math-engine.yml">
-      <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/core-math-engine.yml/badge.svg?branch=Production" alt="Core Math Engine"/>
-    </a>
-    <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/memory-rag-systems.yml">
-      <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/memory-rag-systems.yml/badge.svg?branch=Production" alt="Memory & RAG"/>
-    </a>
-    <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/persona-training.yml">
-      <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/persona-training.yml/badge.svg?branch=Production" alt="Persona Training"/>
-    </a>
-    <br />
-    <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/orchestrator-integration.yml">
-      <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/orchestrator-integration.yml/badge.svg?branch=Production" alt="Orchestrator"/>
-    </a>
-    <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/ui-frontend.yml">
-      <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/ui-frontend.yml/badge.svg?branch=Production" alt="UI Frontend"/>
-    </a>
-    <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/deploy-hf-space.yml">
-      <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/deploy-hf-space.yml/badge.svg?branch=Production" alt="Deploy to HF Space"/>
-    </a>
-  </p>
-</div>
+<p align="center">
+  <em>A research-grade neuro-symbolic cognitive architecture by <strong>Project IMACE</strong></em>
+</p>
+
+<p align="center">
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/core-math-engine.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/core-math-engine.yml/badge.svg" />
+  </a>
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/memory-rag-systems.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/memory-rag-systems.yml/badge.svg" />
+  </a>
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/persona-training.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/persona-training.yml/badge.svg" />
+  </a>
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/orchestrator-integration.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/orchestrator-integration.yml/badge.svg" />
+  </a>
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/ui-frontend.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/ui-frontend.yml/badge.svg" />
+  </a>
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/deploy-hf-space.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/deploy-hf-space.yml/badge.svg" />
+  </a>
+</p>
 
 ---
 
-
----
 
 ## 🧬 Overview
 
