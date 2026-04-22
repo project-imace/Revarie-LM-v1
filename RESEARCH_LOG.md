@@ -27,8 +27,8 @@
   <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/ui-frontend.yml">
     <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/ui-frontend.yml/badge.svg" />
   </a>
-  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/deploy-hf-space.yml">
-    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/deploy-hf-space.yml/badge.svg" />
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/verify-build.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/verify-build.yml/badge.svg" />
   </a>
 </p>
 
