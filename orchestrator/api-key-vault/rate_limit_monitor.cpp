@@ -17,7 +17,8 @@ namespace revarie {
 namespace orchestrator {
 
 class TokenBucket {
-    TokenBucket() : rate(0), capacity(0) {}
+    public:
+    TokenBucket() = default;
 public:
     TokenBucket(double rate, int capacity)
         : rate_(rate), capacity_(capacity), tokens_(capacity) {
