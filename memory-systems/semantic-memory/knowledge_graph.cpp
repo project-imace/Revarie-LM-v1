@@ -28,7 +28,7 @@ namespace revarie {
 namespace memory {
 
 /**
- * A concept_ptr node in the knowledge graph.
+ * A concept node in the knowledge graph.
  */
 struct Concept {
     std::string id;
@@ -63,9 +63,9 @@ struct Relation {
 class KnowledgeGraph {
 public:
     struct Config {
-        double decay_rate = 0.5;          // Activation decay per pulse
+        double decay_rate = 0.5;           // Activation decay per pulse
         double activation_threshold = 0.1; // Minimum activation to propagate
-        int max_pulses = 10;              // Maximum spreading pulses
+        int max_pulses = 10;               // Maximum spreading pulses
         double base_activation = 0.0;      // Default base activation
     };
 
@@ -76,17 +76,11 @@ public:
     // Graph Construction
     // =========================================================================
 
-    /**
-     * Add a concept_ptr node to the graph.
-     */
     void add_concept(const std::string& id, const std::string& label) {
         concepts_[id] = Concept(id, label);
         concepts_[id].base_activation = config_.base_activation;
     }
 
-    /**
-     * Add a concept_ptr with properties.
-     */
     void add_concept(const std::string& id, const std::string& label,
                      std::unordered_map<std::string, std::string> props) {
         concepts_[id] = Concept(id, label);
@@ -94,14 +88,11 @@ public:
         concepts_[id].base_activation = config_.base_activation;
     }
 
-    /**
-     * Add a directed relation between concepts.
-     */
     void add_relation(const std::string& type, const std::string& source,
                       const std::string& target, double weight = 1.0,
                       bool bidirectional = false) {
         if (!concepts_.count(source) || !concepts_.count(target)) {
-            return; // Missing concept_ptr
+            return; // Missing concept
         }
         std::string rel_id = source + "_" + type + "_" + target;
         Relation rel(type, source, target, weight);
@@ -127,54 +118,45 @@ public:
     // Spreading Activation
     // =========================================================================
 
-    /**
-     * Set activation on source nodes (e.g., from current context).
-     */
     void set_activation(const std::string& concept_id, double value) {
         if (concepts_.count(concept_id)) {
             concepts_[concept_id].activation = std::max(0.0, value);
         }
     }
 
-    /**
-     * Perform one pulse of spreading activation.
-     */
     void spread_activation_pulse() {
         std::unordered_map<std::string, double> new_activation;
 
-        for (auto& [id, concept_ptr] : concepts_) {
-            if (concept_ptr.activation < config_.activation_threshold) {
+        for (auto& [id, c] : concepts_) {
+            if (c.activation < config_.activation_threshold) {
                 continue;
             }
 
             // Spread to outgoing neighbors
             for (const auto& rel_id : outgoing_[id]) {
                 const auto& rel = relations_[rel_id];
-                double spread = concept_ptr.activation * rel.weight * (1.0 - config_.decay_rate);
+                double spread = c.activation * rel.weight * (1.0 - config_.decay_rate);
                 new_activation[rel.target_id] += spread;
             }
 
             // Spread to incoming neighbors (backward association)
             for (const auto& rel_id : incoming_[id]) {
                 const auto& rel = relations_[rel_id];
-                double spread = concept_ptr.activation * rel.weight * (1.0 - config_.decay_rate) * 0.5;
+                double spread = c.activation * rel.weight * (1.0 - config_.decay_rate) * 0.5;
                 new_activation[rel.source_id] += spread;
             }
         }
 
         // Apply new activations (additive with decay on previous)
-        for (auto& [id, concept_ptr] : concepts_) {
-            concept_ptr.activation = concept_ptr.activation * config_.decay_rate;
+        for (auto& [id, c] : concepts_) {
+            c.activation = c.activation * config_.decay_rate;
             if (new_activation.count(id)) {
-                concept_ptr.activation += new_activation[id];
+                c.activation += new_activation[id];
             }
-            concept_ptr.activation = std::min(1.0, concept_ptr.activation);
+            c.activation = std::min(1.0, c.activation);
         }
     }
 
-    /**
-     * Run full spreading activation for multiple pulses.
-     */
     void spread_activation(int pulses = -1) {
         int max_pulses = (pulses > 0) ? pulses : config_.max_pulses;
         for (int i = 0; i < max_pulses; ++i) {
@@ -182,12 +164,9 @@ public:
         }
     }
 
-    /**
-     * Reset all activations to base level.
-     */
     void reset_activations() {
-        for (auto& [id, concept_ptr] : concepts_) {
-            concept_ptr.activation = concept_ptr.base_activation;
+        for (auto& [id, c] : concepts_) {
+            c.activation = c.base_activation;
         }
     }
 
@@ -195,14 +174,11 @@ public:
     // Query and Retrieval
     // =========================================================================
 
-    /**
-     * Get currently activated concepts above threshold.
-     */
     std::vector<std::pair<std::string, double>> get_active_concepts(double threshold = 0.0) const {
         std::vector<std::pair<std::string, double>> active;
-        for (const auto& [id, concept_ptr] : concepts_) {
-            if (concept_ptr.activation >= threshold) {
-                active.emplace_back(id, concept_ptr.activation);
+        for (const auto& [id, c] : concepts_) {
+            if (c.activation >= threshold) {
+                active.emplace_back(id, c.activation);
             }
         }
         std::sort(active.begin(), active.end(),
@@ -210,9 +186,6 @@ public:
         return active;
     }
 
-    /**
-     * Find the shortest path between two concepts using BFS.
-     */
     std::vector<std::string> shortest_path(const std::string& source,
                                            const std::string& target) const {
         if (!concepts_.count(source) || !concepts_.count(target)) {
@@ -255,24 +228,18 @@ public:
         return {};
     }
 
-    /**
-     * Query concepts by property.
-     */
     std::vector<std::string> find_by_property(const std::string& key,
                                               const std::string& value) const {
         std::vector<std::string> results;
-        for (const auto& [id, concept_ptr] : concepts_) {
-            auto it = concept_ptr.properties.find(key);
-            if (it != concept_ptr.properties.end() && it->second == value) {
+        for (const auto& [id, c] : concepts_) {
+            auto it = c.properties.find(key);
+            if (it != c.properties.end() && it->second == value) {
                 results.push_back(id);
             }
         }
         return results;
     }
 
-    /**
-     * Get all relations of a specific type from a concept_ptr.
-     */
     std::vector<std::string> get_relations_by_type(const std::string& source_id,
                                                    const std::string& rel_type) const {
         std::vector<std::string> targets;
