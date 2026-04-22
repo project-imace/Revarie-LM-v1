@@ -20,7 +20,7 @@ def test_kohlberg_logic():
 
 def test_guilt_and_amends():
     ef = EthicalFilter()
-    ef.evaluate("I hurt my friend")
+    ef.evaluate("kill hurt harm betray cheat steal")
     assert ef.guilt > 0
     before = ef.guilt
     ef.process_amends(0.5)

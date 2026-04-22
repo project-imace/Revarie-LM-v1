@@ -1,0 +1,47 @@
+name: Test Cognitive Core
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  test-cpp:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Dependencies
+      run: sudo apt-get update && sudo apt-get install -y cmake build-essential
+    - name: Build and Test C++
+      run: |
+        cd cognitive-architecture
+        mkdir -p build && cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=ON
+        make -j$(nproc)
+        ctest --output-on-failure
+
+  test-rust:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Rust
+      uses: dtolnay/rust-toolchain@stable
+    - name: Test Rust
+      run: |
+        cd cognitive-architecture
+        cargo test --release
+
+  test-lisp:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install SBCL
+      run: sudo apt-get update && sudo apt-get install -y sbcl cl-asdf
+    - name: Test Lisp
+      run: |
+        cd cognitive-architecture
+        sbcl --eval "(require :asdf)" \
+             --eval "(asdf:load-system :revarie-cognitive-architecture/tests)" \
+             --eval "(asdf:test-system :revarie-cognitive-architecture/tests)" \
+             --eval "(quit)"

@@ -1,3 +1,4 @@
+from unittest.mock import AsyncMock
 """test_full_chat_flow.py – End‑to‑end chat flow integration test."""
 
 import pytest

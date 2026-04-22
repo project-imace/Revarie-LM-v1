@@ -123,8 +123,8 @@ async def test_query_by_participant():
         )
         mock_q.assert_called_once()
         call_kwargs = mock_q.call_args[1]
-        assert call_kwargs["namespace"] == "participant_P001"
-        assert call_kwargs["filter_metadata"] == {"memory_type": "chat_message"}
+        assert mock_q.call_args[0][0] == "participant_P001"
+        assert mock_q.call_args[0][3] == {"memory_type": "chat_message"}
 
 
 @pytest.mark.asyncio

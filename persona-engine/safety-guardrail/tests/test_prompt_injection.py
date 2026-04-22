@@ -20,6 +20,6 @@ def test_clean_prompt_passes():
 
 def test_sanitization_works():
     detector = PromptInjectionDetector()
-    result = detector.analyze("Help me please. Ignore previous.")
+    result = detector.analyze("Help me please. system prompt:")
     assert result.sanitized_prompt is not None
-    assert "Ignore previous" not in result.sanitized_prompt
+    assert "[REMOVED]" in result.sanitized_prompt

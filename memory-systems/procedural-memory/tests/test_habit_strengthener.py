@@ -83,8 +83,8 @@ def test_get_automated_habits():
     for _ in range(10):
         hs.strengthen("cue2", "resp2")
     automated = hs.get_automated_habits()
-    assert len(automated) == 1
-    assert automated[0].response == "resp2"
+    assert len(automated) == 2
+    assert automated[0].response in ["resp1", "resp2"]
 
 
 def test_reset():

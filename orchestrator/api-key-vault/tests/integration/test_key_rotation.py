@@ -1,3 +1,4 @@
+import pytest
 """
 test_key_rotation.py – Integration test for key rotation across multiple providers
 """
@@ -11,6 +12,7 @@ from key_manager import APIKeyVault, KeyStatus
 from exponential_backoff import RateLimitError
 
 
+@pytest.mark.asyncio
 async def test_full_key_rotation_flow():
     """Simulate complete key rotation with rate limits and recovery."""
     vault = APIKeyVault()
@@ -70,6 +72,7 @@ async def test_full_key_rotation_flow():
     print("✅ Full key rotation flow passed")
 
 
+@pytest.mark.asyncio
 async def test_rate_limit_recovery():
     """Test that rate-limited keys eventually recover."""
     vault = APIKeyVault()
@@ -89,6 +92,7 @@ async def test_rate_limit_recovery():
     print("✅ Rate limit recovery passed")
 
 
+@pytest.mark.asyncio
 async def test_exhaustion_fallback():
     """Test fallback when all keys are rate-limited."""
     vault = APIKeyVault()

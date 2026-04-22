@@ -9,15 +9,22 @@ from unittest.mock import AsyncMock, MagicMock
 def mock_d1_client():
     """Mock D1 client for testing."""
     client = AsyncMock()
-    client.get_participant.return_value = MagicMock(
-        participant_id="P001",
-        name="Test User",
-        study_group="A",
-        ai_type="Relational AI Samara",
-        day_progress=3,
-        has_onboarded=True,
-        is_disqualified=False,
-    )
+    mock_participant = type('MockParticipant', (), {
+        'participant_id': "P001",
+        'name': "Test User",
+        'study_group': "A",
+        'ai_type': "Relational AI Samara",
+        'day_progress': 3,
+        'has_onboarded': True,
+        'is_disqualified': False,
+        'age': 25,
+        'gender': 'Female',
+        'country': 'USA',
+        'status': 'active',
+        'pre_study_mind_experience': None,
+        'post_study_mind_experience': None
+    })()
+    client.get_participant.return_value = mock_participant
     client.get_participant_sessions.return_value = []
     return client
 

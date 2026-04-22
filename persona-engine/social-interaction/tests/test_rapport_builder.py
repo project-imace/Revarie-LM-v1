@@ -20,7 +20,7 @@ def test_samara_warmer_than_artery():
     samara_result = samara.process_interaction("P001", "Hello")
     artery_result = artery.process_interaction("P002", "Hello")
     
-    assert samara.get_or_create_state("P001").positivity > artery.get_or_create_state("P002").positivity
+    assert samara.get_or_create_state("P001").trust > artery.get_or_create_state("P002").trust
 
 def test_stage_progression():
     rb = RapportBuilder("samara")

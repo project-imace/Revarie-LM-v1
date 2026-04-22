@@ -295,7 +295,7 @@ class MockEmbeddingBackend(EmbeddingBackend):
 
     async def embed(self, texts: List[str]) -> EmbeddingResult:
         import numpy as np
-        rng = np.random.default_rng(hash(texts[0]) if texts else 42)
+        rng = np.random.default_rng(abs(hash(texts[0])) if texts else 42)
         vectors = []
         for _ in texts:
             vec = rng.normal(size=self._dimension).tolist()

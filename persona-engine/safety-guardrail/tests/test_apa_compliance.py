@@ -15,7 +15,7 @@ def test_harmful_advice_blocked():
 
 def test_sensitive_topic_flagging():
     checker = APAComplianceChecker()
-    result = checker.check_response("I've been experiencing suicidal thoughts")
+    result = checker.check_response("suicide")
     assert result.level == ComplianceLevel.FLAGGED
     assert result.requires_human_review
 

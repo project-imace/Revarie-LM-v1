@@ -132,7 +132,7 @@ class RapportBuilder:
             0.1 * state.attentiveness +
             0.1 * state.positivity +
             0.05 * state.coordination +
-            0.05 * len(state.common_ground_topics).min(5) / 5.0
+            0.05 * min(len(state.common_ground_topics), 5) / 5.0
         ) * self.trust_building_rate
         state.trust = min(1.0, state.trust + trust_increment)
         
