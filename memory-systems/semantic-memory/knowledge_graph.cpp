@@ -36,6 +36,10 @@ struct Concept {
     std::unordered_map<std::string, std::string> properties;
     double activation = 0.0;
     double base_activation = 0.0;
+    };
+
+    KnowledgeGraph() : config_({}) {}
+    explicit KnowledgeGraph(Config config) : config_(std::move(config)) {}
 
     Concept() = default;
     Concept(std::string id, std::string label) : id(std::move(id)), label(std::move(label)) {}
@@ -69,7 +73,11 @@ public:
         double base_activation = 0.0;      // Default base activation
     };
 
-    KnowledgeGraph() : config_({}) {} explicit KnowledgeGraph(Config config) : config_(std::move(config)) {} {}
+    KnowledgeGraph() : config_({}) {}
+    explicit KnowledgeGraph(Config config) : config_(std::move(config)) {}
+    };
+
+    
 
     // =========================================================================
     // Graph Construction
