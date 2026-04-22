@@ -69,7 +69,7 @@ public:
         double base_activation = 0.0;      // Default base activation
     };
 
-    explicit KnowledgeGraph(Config config = Config{}) : config_(std::move(config)) {}
+    explicit KnowledgeGraph(Config config = {}) : config_(std::move(config)) {}
 
     // =========================================================================
     // Graph Construction
