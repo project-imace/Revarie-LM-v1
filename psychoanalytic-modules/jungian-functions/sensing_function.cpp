@@ -65,9 +65,11 @@ public:
         double recency_weight = 0.4;       // Weight for recent observations
         double novelty_weight = 0.3;       // Weight for novel stimuli
         double intensity_weight = 0.3;     // Weight for stimulus intensity
+
+        Config() {}
     };
 
-    explicit SensingFunction(const std::string& name = "Sensing", Config config = Config{})
+    explicit SensingFunction(const std::string& name = "Sensing", Config config = Config())
         : name_(name), config_(std::move(config)) {}
 
     /**
@@ -86,13 +88,26 @@ public:
         detail.timestamp = std::chrono::steady_clock::now();
         
         // Check if similar detail exists
-        auto existing = find_similar(detail);
+        auto existing = find_similar(detail, 0.7);
         if (existing != details_.end()) {
             existing->observation_count++;
             existing->timestamp = detail.timestamp;
             existing->intensity = (existing->intensity + intensity) / 2.0;
             compute_salience(*existing);
             return existing->id;
+        }
+
+        // Exact match fallback when features empty or compute_similarity returns 0
+        auto exact = std::find_if(details_.begin(), details_.end(),
+                            [&](const SensoryDetail& existing) {
+                                return detail.description == existing.description && detail.modality == existing.modality;
+                            });
+        if (exact != details_.end()) {
+            exact->observation_count++;
+            exact->timestamp = detail.timestamp;
+            exact->intensity = (exact->intensity + intensity) / 2.0;
+            compute_salience(*exact);
+            return exact->id;
         }
         
         compute_salience(detail);
@@ -251,7 +266,7 @@ private:
         return dot / (std::sqrt(norm_a) * std::sqrt(norm_b));
     }
 
-    auto find_similar(const SensoryDetail& target, double threshold = 0.7) {
+    std::deque<SensoryDetail>::iterator find_similar(const SensoryDetail& target, double threshold) {
         return std::find_if(details_.begin(), details_.end(),
                             [&](const SensoryDetail& existing) {
                                 return compute_similarity(target, existing) > threshold;

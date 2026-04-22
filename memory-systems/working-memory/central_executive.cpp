@@ -72,8 +72,6 @@ public:
 
     CentralExecutive() : config_({}) { current_focus_ = AttentionFocus::None; }
     explicit CentralExecutive(Config config) : config_(std::move(config)) { current_focus_ = AttentionFocus::None; }
-    };
-
 
     /**
      * Submit a task for executive processing.
