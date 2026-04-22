@@ -2,9 +2,9 @@ name: Test Python Ecosystem
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [ "Production" ]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "Production" ]
 
 jobs:
   test:

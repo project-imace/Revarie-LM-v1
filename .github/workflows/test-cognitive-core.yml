@@ -2,9 +2,9 @@ name: Test Cognitive Core
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [ "Production" ]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "Production" ]
 
 jobs:
   test-cpp:
@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install Dependencies
-      run: sudo apt-get update && sudo apt-get install -y cmake build-essential
+      run: sudo apt-get update && sudo apt-get install -y cmake build-essential libboost-all-dev
     - name: Build and Test C++
       run: |
         cd cognitive-architecture
@@ -36,12 +36,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Install SBCL
-      run: sudo apt-get update && sudo apt-get install -y sbcl cl-asdf
+    - name: Install SBCL and Quicklisp
+      run: |
+        sudo apt-get update && sudo apt-get install -y sbcl cl-asdf curl
+        curl -O https://beta.quicklisp.org/quicklisp.lisp
+        sbcl --no-sysinit --no-userinit --load quicklisp.lisp --eval '(quicklisp-quickstart:install)' --eval '(ql-util:without-prompting (ql:add-to-init-file))' --eval '(quit)'
     - name: Test Lisp
       run: |
         cd cognitive-architecture
-        sbcl --eval "(require :asdf)" \
-             --eval "(asdf:load-system :revarie-cognitive-architecture/tests)" \
+        sbcl --noinform --disable-debugger \
+             --eval "(ql:quickload :fiveam)" \
+             --eval "(asdf:load-asd (merge-pathnames \"revarie-cognitive-architecture.asd\" (uiop:getcwd)))" \
+             --eval "(ql:quickload :revarie-cognitive-architecture/tests)" \
              --eval "(asdf:test-system :revarie-cognitive-architecture/tests)" \
              --eval "(quit)"

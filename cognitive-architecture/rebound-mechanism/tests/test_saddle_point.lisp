@@ -16,7 +16,7 @@
 
 (test saddle-point-creation
   "Test creation of saddle points."
-  (let ((sp (make-saddle-point '(1.0 2.0 3.0))))
+  (let ((sp (revarie-rebound::make-saddle-point '(1.0 2.0 3.0))))
     (is (typep sp 'revarie-rebound::saddle-point))
     (is (equal '(1.0 2.0 3.0) (revarie-rebound::sp-coordinates sp)))
     (is (= 3 (revarie-rebound::sp-dimension sp)))))
@@ -30,7 +30,7 @@
 
 (test saddle-point-distance-with-predefined
   "Test distance computation to predefined saddle point."
-  (let* ((sp (make-saddle-point '(0.0 0.0)))
+  (let* ((sp (revarie-rebound::make-saddle-point '(0.0 0.0)))
          (seeker (make-saddle-point-seeker nil :saddle-points (list sp))))
     (let ((dist (saddle-point-distance seeker '(3.0 4.0))))
       (is (< (abs (- dist 5.0)) 1e-6)))))

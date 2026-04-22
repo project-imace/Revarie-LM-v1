@@ -43,4 +43,10 @@
                 :components ((:file "tests/test_saddle_point")))
                (:module "pomdp-engine"
                 :components ((:file "tests/test_value_iteration"))))
-  :perform (test-op (op c) (uiop:symbol-call :fiveam :run! :revarie-cognitive-architecture)))
+  :perform (test-op (op c)
+    (uiop:symbol-call :fiveam :run! (uiop:find-symbol* '#:system-two-tests :revarie-system-two-tests))
+    (uiop:symbol-call :fiveam :run! (uiop:find-symbol* '#:gwt-attention-tests :revarie-gwt-tests))
+    (uiop:symbol-call :fiveam :run! (uiop:find-symbol* '#:active-inference-tests :revarie-active-inference-tests))
+    (uiop:symbol-call :fiveam :run! (uiop:find-symbol* '#:belief-atoms-tests :revarie-belief-space-tests))
+    (uiop:symbol-call :fiveam :run! (uiop:find-symbol* '#:rebound-tests :revarie-rebound-tests))
+    (uiop:symbol-call :fiveam :run! (uiop:find-symbol* '#:pomdp-tests :revarie-pomdp-tests))))
