@@ -19,8 +19,21 @@ use tower_http::{
 };
 use tracing::{info, Level};
 
+// --- LOCAL GATEWAY MODULES ---
 mod routes;
 mod middleware;
+
+// --- EXTERNAL COGNITIVE LOBES (The Surgical Bridge) ---
+#[path = "../../cognitive-architecture/dual-process/system_one/pattern_matcher.rs"]
+pub mod pattern_matcher;
+
+#[path = "../../memory-systems/episodic-memory/retrieval_augmenter.rs"]
+pub mod retrieval_augmenter;
+
+// You can continue adding other lobes here using the same #[path] pattern:
+// #[path = "../../theory-of-mind/goal_inference_engine.rs"]
+// pub mod goal_inference;
+// ------------------------------------------------------
 
 use middleware::{auth::auth_middleware, logging::log_request};
 use routes::{admin, chat, health};

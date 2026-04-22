@@ -1,0 +1,12 @@
+[[package]]
+name = "revarie-lm-v1"
+version = "1.0.0"
+description = "Polyglot Orchestrator and Cognitive Engine"
+category = "main"
+optional = false
+python-versions = ">=3.10"
+
+[metadata]
+lock-version = "2.0"
+python-versions = ">=3.10"
+content-hash = "manual-bypass-for-mobile-deployment"

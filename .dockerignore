@@ -1,0 +1,17 @@
+**/target/
+**/build/
+**/__pycache__/
+**/*.pyc
+**/.git/
+**/.venv/
+**/node_modules/
+**/.next/
+**/tests/
+**/*.rs.bk
+**/*.o
+**/*.a
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example

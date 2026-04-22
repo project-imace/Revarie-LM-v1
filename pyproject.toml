@@ -3,9 +3,9 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "revarie-cognitive-architecture"
+name = "revarie-lm-v1"
 version = "1.0.0"
-description = "Cognitive Architecture core for REVARIE LM v1.0 (Python modules)"
+description = "Polyglot Orchestrator and Cognitive Engine for REVARIE LM v1.0"
 authors = [
     {name = "Project IMACE", email = "research@imace.online"}
 ]
@@ -46,15 +46,19 @@ dev = [
     "mypy>=1.5.0",
 ]
 
-[tool.setuptools]
-packages = [
-    "dual-process.system_one",
-    "global-workspace",
-    "active-inference",
-    "belief-space",
-    "pomdp-engine",
-    "jepa-mimetic",
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+    "orchestrator*",
+    "cognitive-architecture*",
+    "memory-systems*",
+    "theory-of-mind*",
+    "psychoanalytic-modules*",
+    "persona-engine*",
+    "rag-pipeline*",
+    "training*"
 ]
+namespaces = true
 
 [tool.black]
 line-length = 100
@@ -66,7 +70,16 @@ line_length = 100
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
-testpaths = ["tests"]
+testpaths = [
+    "tests",
+    "orchestrator",
+    "cognitive-architecture",
+    "memory-systems",
+    "theory-of-mind",
+    "psychoanalytic-modules",
+    "persona-engine",
+    "rag-pipeline"
+]
 python_files = "test_*.py"
 python_classes = "Test*"
 python_functions = "test_*"
