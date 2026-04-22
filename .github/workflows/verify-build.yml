@@ -8,24 +8,33 @@ on:
 
 jobs:
   validate-configs:
+    name: Config & File Integrity
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check Nginx Configuration Syntax
+      - name: Verify Critical File Presence
         run: |
-          # We use a slim nginx image to verify the config file
-          docker run --rm -v $(pwd)/nginx.conf:/etc/nginx/nginx.conf:ro nginx:alpine nginx -t -c /etc/nginx/nginx.conf || echo "Nginx check skipped - requires root context"
-          # Simple grep check for common errors in your root nginx.conf
-          grep -q "listen 7860;" nginx.conf && echo "Nginx Port 7860 Verified"
+          ls Cargo.toml pyproject.toml Dockerfile supervisord.conf nginx.conf
+          ls main.cpp main.lisp orchestrator/main.py
+          echo "All core files present."
+
+      - name: Validate Nginx Site Configuration
+        run: |
+          grep -q "listen 7860;" nginx.conf || (echo "ERROR: nginx.conf must listen on 7860" && exit 1)
+          grep -q "proxy_pass http://127.0.0.1:3000" nginx.conf || (echo "ERROR: Nginx not pointing to Rust Gateway" && exit 1)
+          echo "Nginx site logic verified."
 
       - name: Validate Supervisord Syntax
         run: |
           python3 -m pip install supervisor
-          # Check if all programs defined in supervisord.conf have commands
-          grep "command=" supervisord.conf
+          for prog in nginx rust-api python-orchestrator cpp-reasoner lisp-engine; do
+            grep -q "program:$prog" supervisord.conf || (echo "ERROR: Missing program $prog in supervisord" && exit 1)
+          done
+          echo "Supervisord process map verified."
 
   python-sanity-check:
+    name: Python CEO Validation
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -38,21 +47,23 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
-          # This checks if your 'Surgical' pyproject.toml is valid
           pip install -e .
           python3 -c "import orchestrator; print('Orchestrator Namespace Verified')"
 
   docker-build-dry-run:
+    name: Docker Global Build (Dry Run)
     runs-on: ubuntu-24.04
+    needs: [validate-configs, python-sanity-check]
     steps:
       - uses: actions/checkout@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       
-      - name: Dockerfile Structural Check
+      - name: Build Container
         uses: docker/build-push-action@v5
         with:
           context: .
-          # This 'exports' nothing, just checks if the build *could* succeed
-          push: false
+          push: false 
           outputs: type=cacheonly
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
