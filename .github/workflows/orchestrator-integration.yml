@@ -14,7 +14,7 @@ jobs:
         python-version: '3.12'
     - name: Install Robust Dependency Stack
       run: |
-        pip install pytest pytest-asyncio aiohttp pydantic python-dotenv
+        pip install pytest pytest-asyncio aiohttp pydantic python-dotenv hypothesis pytest-mock
         find orchestrator tests -name "requirements.txt" -exec pip install -r {} \;
     - name: Rust API Gateway Tests
       run: find orchestrator -name "Cargo.toml" -execdir cargo test --release \;
