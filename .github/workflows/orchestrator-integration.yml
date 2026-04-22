@@ -1,6 +1,7 @@
 name: Orchestrator & Integration
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "Production" ]
     paths:
@@ -15,12 +16,15 @@ concurrency:
 
 jobs:
   test-gateway-and-integration:
+  workflow_dispatch:
     runs-on: ubuntu-24.04
+  workflow_dispatch:
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v5
       with:
         python-version: '3.12'
+  workflow_dispatch:
         cache: 'pip'
         
     - name: Install Dependencies

@@ -1,6 +1,7 @@
 name: Deploy to Hugging Face Space
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "Production" ]
     paths-ignore:
@@ -15,6 +16,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-24.04
+  workflow_dispatch:
     steps:
       - uses: actions/checkout@v4
         with:

@@ -1,6 +1,7 @@
 name: UI Frontend
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "Production" ]
     paths:
@@ -15,11 +16,13 @@ concurrency:
 jobs:
   test-and-build-ui:
     runs-on: ubuntu-24.04
+  workflow_dispatch:
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:
         node-version: '20'
+  workflow_dispatch:
         cache: 'npm'
         cache-dependency-path: ui/package-lock.json
     - name: Install, Lint, Test, Build
