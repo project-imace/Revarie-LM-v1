@@ -1,17 +1,16 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import { Send, Heart } from 'lucide-react';
 import ChatBubble from '@/components/ChatBubble';
 import ThinkingTree from '@/components/ThinkingTree';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Heart, Send } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function SamaraPage() {
   const [messages, setMessages] = useState<Array<{role: string; content: string; thinking?: string[]}>>([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const [isThinking, setIsThinking] = useState(false);
+  const [, setIsThinking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });

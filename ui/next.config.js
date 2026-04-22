@@ -7,10 +7,16 @@ const nextConfig = {
     remotePatterns: [{ protocol: 'https', hostname: 'assets.imace.online', pathname: '/**' }],
   },
   async rewrites() {
+    const hfSpaceUrl = process.env.NEXT_PUBLIC_HF_SPACE_URL;
+    if (!hfSpaceUrl) {
+      console.warn('Warning: NEXT_PUBLIC_HF_SPACE_URL is not defined. API routes will not be proxied.');
+      return [];
+    }
     return [
-      { source: '/api/chat', destination: `${process.env.NEXT_PUBLIC_HF_SPACE_URL}/api/chat` },
-      { source: '/api/health', destination: `${process.env.NEXT_PUBLIC_HF_SPACE_URL}/health` },
+      { source: '/api/chat', destination: `${hfSpaceUrl}/api/chat` },
+      { source: '/api/health', destination: `${hfSpaceUrl}/health` },
     ];
   },
 };
-module.exports = nextConfig;
+
+export default nextConfig;

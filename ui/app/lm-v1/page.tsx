@@ -1,12 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
+import Link from 'next/link';
 
 export default function LMv1LandingPage() {
-  const [videoLoaded, setVideoLoaded] = useState(false);
 
   return (
     <main className="min-h-screen bg-background text-white overflow-x-hidden">

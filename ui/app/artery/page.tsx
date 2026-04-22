@@ -1,11 +1,10 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import { Terminal as TerminalIcon, Send } from 'lucide-react';
 import ChatBubble from '@/components/ChatBubble';
 import Terminal from '@/components/Terminal';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Send, Terminal as TerminalIcon } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function ArteryPage() {
   const [messages, setMessages] = useState<Array<{role: string; content: string}>>([]);
