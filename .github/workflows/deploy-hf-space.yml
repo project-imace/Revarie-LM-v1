@@ -28,4 +28,4 @@ jobs:
         run: |
           hf upload project-imace/revarie-lm-v1-engine . \
             --repo-type=space \
-            --space-sdk=docker
+            
