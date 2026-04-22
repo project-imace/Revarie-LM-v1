@@ -70,7 +70,7 @@ public:
         bool automatic_rehearsal = true;
     };
 
-    explicit CentralExecutive(Config config = {}) : config_(std::move(config)) {
+    CentralExecutive() : config_({}) {} explicit CentralExecutive(Config config) : config_(std::move(config)) { {
         current_focus_ = AttentionFocus::None;
     }
 

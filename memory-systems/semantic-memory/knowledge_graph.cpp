@@ -69,7 +69,7 @@ public:
         double base_activation = 0.0;      // Default base activation
     };
 
-    explicit KnowledgeGraph(Config config = {}) : config_(std::move(config)) {}
+    KnowledgeGraph() : config_({}) {} explicit KnowledgeGraph(Config config) : config_(std::move(config)) {} {}
 
     // =========================================================================
     // Graph Construction
@@ -141,7 +141,7 @@ public:
     void spread_activation_pulse() {
         std::unordered_map<std::string, double> new_activation;
 
-        for (auto& [id, concept] : concepts_) {
+        for (auto& [id, concept_ptr] : concepts_) {
             if (concept.activation < config_.activation_threshold) {
                 continue;
             }
@@ -162,7 +162,7 @@ public:
         }
 
         // Apply new activations (additive with decay on previous)
-        for (auto& [id, concept] : concepts_) {
+        for (auto& [id, concept_ptr] : concepts_) {
             concept.activation = concept.activation * config_.decay_rate;
             if (new_activation.count(id)) {
                 concept.activation += new_activation[id];
@@ -185,7 +185,7 @@ public:
      * Reset all activations to base level.
      */
     void reset_activations() {
-        for (auto& [id, concept] : concepts_) {
+        for (auto& [id, concept_ptr] : concepts_) {
             concept.activation = concept.base_activation;
         }
     }
@@ -199,7 +199,7 @@ public:
      */
     std::vector<std::pair<std::string, double>> get_active_concepts(double threshold = 0.0) const {
         std::vector<std::pair<std::string, double>> active;
-        for (const auto& [id, concept] : concepts_) {
+        for (const auto& [id, concept_ptr] : concepts_) {
             if (concept.activation >= threshold) {
                 active.emplace_back(id, concept.activation);
             }
@@ -260,7 +260,7 @@ public:
     std::vector<std::string> find_by_property(const std::string& key,
                                               const std::string& value) const {
         std::vector<std::string> results;
-        for (const auto& [id, concept] : concepts_) {
+        for (const auto& [id, concept_ptr] : concepts_) {
             auto it = concept.properties.find(key);
             if (it != concept.properties.end() && it->second == value) {
                 results.push_back(id);

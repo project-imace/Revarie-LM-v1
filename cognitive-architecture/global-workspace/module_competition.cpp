@@ -89,7 +89,7 @@ public:
         size_t history_size = 100;
     };
 
-    explicit ModuleCompetition(Config config = Config{}) : config_(std::move(config)) {}
+    ModuleCompetition() : config_({}) {} explicit ModuleCompetition(Config config) : config_(std::move(config)) {}
 
     /**
      * Submit a signal from a module for competition.
