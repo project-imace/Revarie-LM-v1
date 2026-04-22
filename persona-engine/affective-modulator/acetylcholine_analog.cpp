@@ -1,3 +1,4 @@
+#include <string>
 /**
  * acetylcholine_analog.cpp – Affective Modulator: Acetylcholine Analog
  * 
@@ -32,7 +33,7 @@ public:
         double learning_rate = 0.1;
     };
 
-    explicit AcetylcholineAnalog(Config config = Config{}) 
+    AcetylcholineAnalog() : config_({}) {} explicit AcetylcholineAnalog(Config config) 
         : config_(std::move(config)), level_(config_.baseline) {
         last_update_ = std::chrono::steady_clock::now();
     }
