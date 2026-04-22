@@ -12,9 +12,9 @@ jobs:
     - uses: actions/setup-python@v5
       with:
         python-version: '3.12'
-    - name: Install Robust Dependency Stack
+    - name: Install Full Integration Stack
       run: |
-        pip install pytest pytest-asyncio aiohttp pydantic python-dotenv hypothesis pytest-mock
+        pip install pytest pytest-asyncio aiohttp pydantic python-dotenv hypothesis pytest-mock numpy torch scipy
         find orchestrator tests -name "requirements.txt" -exec pip install -r {} \;
     - name: Rust API Gateway Tests
       run: find orchestrator -name "Cargo.toml" -execdir cargo test --release \;
