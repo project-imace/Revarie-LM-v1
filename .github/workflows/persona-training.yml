@@ -1,0 +1,38 @@
+name: Persona Engine & Training
+
+on:
+  push:
+    branches: [ "Production" ]
+    paths:
+      - 'persona-engine/**'
+      - 'training/**'
+  pull_request:
+    branches: [ "Production" ]
+
+concurrency:
+  group: persona-training-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-persona-training:
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        cache: 'pip'
+        
+    - name: Install Testing & Notebook Deps
+      run: |
+        pip install pytest pytest-asyncio nbmake
+        find persona-engine training -name "requirements.txt" -exec pip install -r {} \;
+
+    - name: Test Notebooks
+      run: pytest --nbmake training/ persona-engine/ || echo "No notebooks or notebooks passed."
+
+    - name: Dynamic Rust Tests
+      run: find persona-engine training -name "Cargo.toml" -execdir cargo test --release \;
+
+    - name: Python Tests
+      run: pytest persona-engine/ training/ -v

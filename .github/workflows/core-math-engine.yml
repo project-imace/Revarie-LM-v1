@@ -1,0 +1,66 @@
+name: Core Math & Logic Engine
+
+on:
+  push:
+    branches: [ "Production" ]
+    paths:
+      - 'cognitive-architecture/**'
+      - 'turing-machine/**'
+      - 'theory-of-mind/**'
+      - 'psychoanalytic-modules/**'
+  pull_request:
+    branches: [ "Production" ]
+
+concurrency:
+  group: core-math-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-polyglot-core:
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Cache Build Artifacts
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.ccache
+          ~/.cargo/registry
+          ~/.cargo/git
+          ~/quicklisp
+        key: ${{ runner.os }}-math-core-${{ github.sha }}
+        restore-keys: ${{ runner.os }}-math-core-
+
+    - name: Install System Dependencies
+      run: |
+        sudo apt-get update 
+        sudo apt-get install -y cmake build-essential libboost-all-dev ccache sbcl cl-asdf curl
+        if [ ! -d "$HOME/quicklisp" ]; then
+          curl -O https://beta.quicklisp.org/quicklisp.lisp
+          sbcl --non-interactive --load quicklisp.lisp --eval '(quicklisp-quickstart:install)' --eval '(ql-util:without-prompting (ql:add-to-init-file))'
+        fi
+
+    - name: C++ Build & Test (Dynamic)
+      run: |
+        find cognitive-architecture turing-machine theory-of-mind psychoanalytic-modules -name "CMakeLists.txt" -execdir bash -c 'mkdir -p build && cd build && cmake .. -DBUILD_TESTS=ON && make -j$(nproc) && ctest --output-on-failure' \;
+
+    - name: Rust Test (Dynamic)
+      run: |
+        find cognitive-architecture turing-machine theory-of-mind psychoanalytic-modules -name "Cargo.toml" -execdir cargo test --release \;
+
+    - name: Python Test (Pytest Native Discovery)
+      run: |
+        pip install pytest pytest-asyncio numpy scipy
+        pytest cognitive-architecture/ turing-machine/ theory-of-mind/ psychoanalytic-modules/ -v --tb=short
+
+    - name: Lisp Test (Strict ASDF)
+      run: |
+        if [ -f cognitive-architecture/revarie.asd ]; then
+          cd cognitive-architecture
+          sbcl --non-interactive --disable-debugger \
+               --eval "(ql:quickload :fiveam)" \
+               --eval "(asdf:load-asd (merge-pathnames \"revarie.asd\" (uiop:getcwd)))" \
+               --eval "(ql:quickload :revarie-cognitive-architecture/tests)" \
+               --eval "(asdf:test-system :revarie-cognitive-architecture/tests)"
+        fi

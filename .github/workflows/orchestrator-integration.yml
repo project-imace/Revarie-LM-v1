@@ -1,0 +1,46 @@
+name: Orchestrator & Integration
+
+on:
+  push:
+    branches: [ "Production" ]
+    paths:
+      - 'orchestrator/**'
+      - 'tests/**'
+  pull_request:
+    branches: [ "Production" ]
+
+concurrency:
+  group: orchestrator-int-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-gateway-and-integration:
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        cache: 'pip'
+        
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update && sudo apt-get install -y g++
+        pip install pytest pytest-asyncio
+        find orchestrator tests -name "requirements.txt" -exec pip install -r {} \;
+
+    - name: Rust API Gateway Tests
+      run: find orchestrator -name "Cargo.toml" -execdir cargo test --release \;
+
+    - name: C++ Rate Limit Monitor Tests
+      run: |
+        if [ -f orchestrator/api-key-vault/tests/test_rate_limit_monitor.cpp ]; then
+          cd orchestrator/api-key-vault/tests
+          g++ -std=c++17 -DTEST_RATE_LIMIT_MONITOR -o test_rlm test_rate_limit_monitor.cpp
+          ./test_rlm
+        fi
+
+    - name: Python Orchestrator & Global Integration Tests
+      run: |
+        export PYTHONPATH="$(pwd):$PYTHONPATH"
+        pytest orchestrator/ tests/ -v

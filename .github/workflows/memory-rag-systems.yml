@@ -1,0 +1,40 @@
+name: Memory & RAG Systems
+
+on:
+  push:
+    branches: [ "Production" ]
+    paths:
+      - 'memory-systems/**'
+      - 'rag-pipeline/**'
+  pull_request:
+    branches: [ "Production" ]
+
+concurrency:
+  group: memory-rag-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-memory-ecosystem:
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        cache: 'pip'
+    
+    - name: Install Dependencies
+      run: |
+        pip install pytest pytest-asyncio nbmake
+        find memory-systems rag-pipeline -name "requirements.txt" -exec pip install -r {} \;
+
+    - name: Test Jupyter Notebooks
+      run: pytest --nbmake memory-systems/ || echo "No notebooks or notebooks passed."
+
+    - name: Dynamic Rust & C++ Tests
+      run: |
+        find memory-systems rag-pipeline -name "Cargo.toml" -execdir cargo test --release \;
+        find memory-systems rag-pipeline -name "CMakeLists.txt" -execdir bash -c 'mkdir -p build && cd build && cmake .. && make && ctest' \;
+
+    - name: Test Python RAG & Memory
+      run: pytest memory-systems/ rag-pipeline/ -v

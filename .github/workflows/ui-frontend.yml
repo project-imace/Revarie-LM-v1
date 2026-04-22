@@ -1,0 +1,32 @@
+name: UI Frontend
+
+on:
+  push:
+    branches: [ "Production" ]
+    paths:
+      - 'ui/**'
+  pull_request:
+    branches: [ "Production" ]
+
+concurrency:
+  group: ui-frontend-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-and-build-ui:
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: ui/package-lock.json
+    - name: Install, Lint, Test, Build
+      run: |
+        cd ui
+        npm ci
+        npx tsc --noEmit
+        npm run lint
+        npm run test -- --run
+        npm run build
