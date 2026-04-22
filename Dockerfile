@@ -21,6 +21,8 @@ COPY . .
 RUN mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && make -j$(nproc)
 
 # 5. Build the Rust API Gateway (Brain Stem)
+RUN curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
 RUN cargo build --release
 
 # 6. Install Python dependencies and Namespace fix
