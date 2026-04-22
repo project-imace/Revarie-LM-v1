@@ -33,7 +33,7 @@ export default function ArteryPage() {
   return (
     <div className="flex flex-col h-screen bg-black bg-artery-grid relative overflow-hidden"
     >
-      <div className="scan-line pointer-events-none z-50"></div>>
+      <div className="scan-line pointer-events-none z-50"&gt;</div&gt;&gt;
       {/* Terminal Header */}
       <header className="flex items-center justify-between px-6 py-3 border-b border-artery-green/30 bg-black">
         <div className="flex items-center gap-3">
