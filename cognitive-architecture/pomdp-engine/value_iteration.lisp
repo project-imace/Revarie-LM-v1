@@ -29,10 +29,10 @@
   "An α‑vector represents a piecewise‑linear and convex value function
    over the belief simplex. Each α‑vector is a hyperplane: V(b) = max_α α·b."
   (coefficients nil :type list)  ; Linear coefficients (length = n_states)
-  (action nil :type symbol)       ; Action associated with this α‑vector
+  action                          ; Action associated with this α‑vector (can be string or symbol)
   (id (gensym "ALPHA-") :type symbol))
 
-(defun make-alpha-vector (coefficients &key action)
+(defun make-alpha-vector (coefficients action)
   "Create a new α‑vector from coefficient list."
   (%make-alpha-vector :coefficients coefficients :action action))
 
@@ -54,7 +54,7 @@
   (rewards nil :type hash-table)    ; (State Action) -> Reward
   (discount 0.95 :type float))      ; Discount factor γ
 
-(defun make-pomdp (&key states actions observations
+(defun create-pomdp (&key states actions observations
                         transitions observations-matrix rewards discount)
   "Create a new POMDP instance."
   (make-pomdp :states states
@@ -82,11 +82,11 @@
            (loop for action in actions
                  collect (make-alpha-vector
                            (make-list n-states :initial-element
-                                      (/ (loop for s in states
+                                      (let ((m (loop for s in states
                                                maximize (gethash (list s action)
-                                                                 (pomdp-rewards pomdp) 0.0))
-                                         (- 1.0 discount)))
-                           :action action))))
+                                                                 (pomdp-rewards pomdp) 0.0))))
+                                        (if (= discount 1.0) m (/ m (- 1.0 discount)))))
+                           action))))
     (loop for iter from 1 to max-iterations do
       ;; FIXED: Save old-alphas for accurate convergence comparison
       (let ((new-alphas nil)
@@ -99,29 +99,39 @@
             (dolist (obs observations)
               (let ((transformed
                       (loop for s in states
-                            collect (* (gethash s (gethash obs (pomdp-observations-matrix pomdp)) 0.0)
+                            collect (* (let ((h1 (gethash obs (pomdp-observations-matrix pomdp))))
+                                         (if h1 (gethash s h1 0.0) 0.0))
                                        (loop for s-prime in states
-                                             sum (* (gethash s-prime (gethash s (gethash action (pomdp-transitions pomdp))) 0.0)
-                                                    (gethash (list s-prime action) (pomdp-rewards pomdp) 0.0))))))
+                                             sum (* (let ((h1 (gethash action (pomdp-transitions pomdp))))
+                                                      (if h1 (let ((h2 (gethash s h1)))
+                                                               (if h2 (gethash s-prime h2 0.0) 0.0))
+                                                          0.0))
+                                                    (gethash (list s-prime action) (pomdp-rewards pomdp) 0.0)))))))
                 (setf (gethash obs obs-alphas)
-                      (make-alpha-vector transformed :action action))))
+                      (make-alpha-vector transformed action))))
             ;; Generate cross‑product of existing α‑vectors per observation
             (let ((obs-choices (loop for obs in observations
                                      collect (or (gethash obs obs-alphas)
                                                  (make-alpha-vector
                                                    (make-list n-states :initial-element 0.0)
-                                                   :action action)))))
+                                                   action)))))
               ;; Combine via cross‑sum
               (labels ((cross-sum (alphas acc)
                          (if (null alphas)
                              ;; FIXED: acc is already the list of summed coefficients. No mapcar needed.
-                             (push (make-alpha-vector acc :action action) new-alphas)
-                             (dolist (a (car alphas))
-                               (cross-sum (cdr alphas)
-                                          (if acc
-                                              (mapcar #'+ acc (alpha-vector-coefficients a))
-                                              (alpha-vector-coefficients a)))))))
-                (cross-sum (list obs-choices) nil)))))
+                             (push (make-alpha-vector acc action) new-alphas)
+                             (if (listp (car alphas))
+                                 (dolist (a (car alphas))
+                                   (cross-sum (cdr alphas)
+                                              (if acc
+                                                  (mapcar #'+ acc (alpha-vector-coefficients a))
+                                                  (alpha-vector-coefficients a))))
+                                 (let ((a (car alphas)))
+                                   (cross-sum (cdr alphas)
+                                              (if acc
+                                                  (mapcar #'+ acc (alpha-vector-coefficients a))
+                                                  (alpha-vector-coefficients a))))))))
+                (cross-sum obs-choices nil)))))
         ;; Prune dominated α‑vectors
         (setf alpha-vectors (prune-dominated new-alphas))
         ;; Check convergence against the previous generation

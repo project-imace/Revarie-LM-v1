@@ -18,7 +18,7 @@
 (test blanket-creation
   "Test creation of a Markov blanket."
   (let ((mb (make-markov-blanket 3 2 1)))
-    (is (blanket-p mb))
+    (is (revarie-active-inference:markov-blanket-p mb))
     (is (= 3 (length (blanket-internal mb))))
     (is (= 2 (length (blanket-sensory mb))))
     (is (= 1 (length (blanket-active mb))))))

@@ -28,10 +28,10 @@
   (id (gensym "SIG-") :type symbol)
   source              ; string – originating module
   content             ; any – information to broadcast
-  salience 0.0 :type float   ; 0.0–1.0
-  confidence 0.0 :type float ; 0.0–1.0
-  novelty 0.0 :type float    ; 0.0–1.0
-  (timestamp (get-universal-time)) :type integer)
+  (salience 0.0 :type float)   ; 0.0–1.0
+  (confidence 0.0 :type float) ; 0.0–1.0
+  (novelty 0.0 :type float)    ; 0.0–1.0
+  (timestamp (get-universal-time) :type integer))
 
 (defun compute-activation (signal &key (w-salience 0.4) (w-confidence 0.3) (w-novelty 0.3))
   "Compute activation strength of a signal."
