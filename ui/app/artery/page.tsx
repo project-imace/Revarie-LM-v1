@@ -13,7 +13,9 @@ export default function ArteryPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
+  useEffect(() => { 
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); 
+  }, [messages]);
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -31,9 +33,9 @@ export default function ArteryPage() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-black bg-artery-grid relative overflow-hidden"
-    >
-      <div className="scan-line pointer-events-none z-50"&gt;</div&gt;&gt;
+    <div className="flex flex-col h-screen bg-black bg-artery-grid relative overflow-hidden">
+      <div className="scan-line pointer-events-none z-50"></div>
+      
       {/* Terminal Header */}
       <header className="flex items-center justify-between px-6 py-3 border-b border-artery-green/30 bg-black">
         <div className="flex items-center gap-3">
@@ -54,6 +56,7 @@ export default function ArteryPage() {
             </motion.div>
           ))}
         </AnimatePresence>
+        
         {isProcessing && (
           <div className="font-artery text-artery-green/60 animate-pulse">
             <span className="terminal-prompt">PROCESSING</span>
@@ -75,7 +78,12 @@ export default function ArteryPage() {
             placeholder="ENTER COMMAND..."
             className="flex-1 bg-transparent border-none text-artery-green font-artery placeholder:text-artery-green/30 focus:outline-none"
           />
-          <button onClick={handleSend} disabled={!input.trim()} aria-label="Send" className="text-artery-green/60 hover:text-artery-green disabled:opacity-30">
+          <button 
+            onClick={handleSend} 
+            disabled={!input.trim()} 
+            aria-label="Send" 
+            className="text-artery-green/60 hover:text-artery-green disabled:opacity-50 transition-opacity"
+          >
             <Send className="w-4 h-4" />
           </button>
         </div>
