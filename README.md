@@ -1,26 +1,9 @@
 # Revarie LM v1.0 – Cognitive Emulation Research Instrument
 
-[
-
-![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
-
-](LICENSE)
-[
-
-![Cognitive Core Tests](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-cognitive-core.yml/badge.svg)
-
-](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-cognitive-core.yml)
-
-[
-
-![Python Ecosystem Tests](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-python-ecosystem.yml/badge.svg)
-
-](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-python-ecosystem.yml)
-[
-
-![UI Tests](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-ui.yml/badge.svg)
-
-](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-ui.yml)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Cognitive Core Tests](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-cognitive-core.yml/badge.svg)](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-cognitive-core.yml)
+[![Python Ecosystem Tests](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-python-ecosystem.yml/badge.svg)](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-python-ecosystem.yml)
+[![UI Tests](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-ui.yml/badge.svg)](https://github.com/project-imace/revarie-lm-v1/actions/workflows/test-ui.yml)
 
 **Revarie LM v1.0** is a research-grade neuro-symbolic cognitive architecture developed by **Project IMACE**. It serves as a parametric instrument for investigating anthropomorphic reflection in language-based AI systems. The system powers a 14-day longitudinal study with two distinct personas:
 
