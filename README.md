@@ -1,11 +1,10 @@
 ---
 title: Revarie LM v1.0
-emoji: 🧠
+emoji: 🟦
 colorFrom: gray
 colorTo: blue
 sdk: docker
 app_port: 7860
-pinned: true
 ---
 
 # Revarie LM v1.0 – Cognitive Emulation Engine
