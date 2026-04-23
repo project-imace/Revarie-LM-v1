@@ -1,5 +1,5 @@
 ---
-title: Revarie LM v1.0 Cognitive Engine
+title: Revarie LM v1.0
 emoji: 🧠
 colorFrom: gray
 colorTo: blue
