@@ -2,7 +2,7 @@ name: Sync to Hugging Face Hub
 
 on:
   push:
-    branches: [Production] # Triggers only when you push to the production branch
+    branches: [Production]
   workflow_dispatch:
 
 jobs:
@@ -13,11 +13,25 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          lfs: true
 
-      - name: Push to Hugging Face
+      - name: Strip Binaries and Push
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          # Logic: Pushes your local 'production' branch to the Space's 'main' branch
-          git push --force https://ariartry:$HF_TOKEN@huggingface.co/spaces/ariartry/revarie-engine-v1 Production:main
+          # 1. Physically remove the offenders in the runner
+          rm -rf build/
+          rm -f test_sf test_kg
+          
+          # 2. Configure Git in the runner
+          git config --global user.email "bot@revarie.me"
+          git config --global user.name "Revarie Deploy Bot"
+          
+          # 3. Create a temporary 'clean' branch
+          git checkout -b temp-deploy-branch
+          
+          # 4. Commit the removal (even if files are already gone)
+          git add .
+          git commit -m "Internal: Stripping binaries for HF compliance" || echo "No changes to commit"
+          
+          # 5. Push this clean state to HF's main branch
+          git push --force https://ariartry:$HF_TOKEN@huggingface.co/spaces/ariartry/revarie-engine-v1 temp-deploy-branch:main
