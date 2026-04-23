@@ -9,7 +9,7 @@
 ;; 2. Load the unified cognitive architecture system
 (format t "Initializing REVARIE Symbolic Wrapper...~%")
 (handler-case
-    (asdf:load-system "revarie-cognitive-architecture")
+    (asdf:load-system "revarie")
   (error (e)
     (format *error-output* "Failed to load cognitive architecture: ~A~%" e)
     (uiop:quit 1)))
