@@ -14,24 +14,26 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Strip Binaries and Push
+      - name: Purge History and Push
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          # 1. Physically remove the offenders in the runner
+          # 1. Physically remove the binary offenders
           rm -rf build/
           rm -f test_sf test_kg
           
-          # 2. Configure Git in the runner
+          # 2. THE NUCLEAR FIX: Delete the .git history folder in the runner
+          rm -rf .git
+          
+          # 3. Re-initialize as a brand new, clean repository
+          git init
           git config --global user.email "bot@revarie.me"
           git config --global user.name "Revarie Deploy Bot"
           
-          # 3. Create a temporary 'clean' branch
-          git checkout -b temp-deploy-branch
-          
-          # 4. Commit the removal (even if files are already gone)
+          # 4. Add ONLY the current source code
           git add .
-          git commit -m "Internal: Stripping binaries for HF compliance" || echo "No changes to commit"
+          git commit -m "Rigorous clean-slate deployment (Binary Purged)"
           
-          # 5. Push this clean state to HF's main branch
-          git push --force https://ariartry:$HF_TOKEN@huggingface.co/spaces/ariartry/revarie-engine-v1 temp-deploy-branch:main
+          # 5. Force push this single 'clean' commit to HF
+          # We push the local 'master' (default for git init) to HF 'main'
+          git push --force https://ariartry:$HF_TOKEN@huggingface.co/spaces/ariartry/revarie-engine-v1 master:main
