@@ -3,13 +3,13 @@
 
 (require 'asdf)
 
-;; 1. Register the root directory so ASDF finds the .asd file
+;; 1. Register the root directory so ASDF/Quicklisp finds the .asd file
 (push (uiop:getcwd) asdf:*central-registry*)
 
-;; 2. Load the unified cognitive architecture system
+;; 2. Load the unified cognitive architecture system using QUICKLISP
 (format t "Initializing REVARIE Symbolic Wrapper...~%")
 (handler-case
-    (asdf:load-system "revarie-cognitive-architecture")
+    (ql:quickload "revarie-cognitive-architecture")
   (error (e)
     (format *error-output* "Failed to load cognitive architecture: ~A~%" e)
     (uiop:quit 1)))
@@ -20,6 +20,7 @@
   (format t "Starting Symbolic Engine for 14-Day Study...~%")
   (format t "Awaiting logical validation requests from Orchestrator...~%")
   
+  ;; This loop keeps the Lisp image alive under supervisord.
   (loop
      (sleep 60)
      ))
