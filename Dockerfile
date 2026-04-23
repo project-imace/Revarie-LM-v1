@@ -1,37 +1,57 @@
 FROM ubuntu:24.04 AS base
+
+# Prevent timezone and prompt hangs during apt-get
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
-ENV PATH="/usr/local/cargo/bin:${PATH}"
 
-# Install system dependencies (Now including Boost for Crow)
+# 1. Install system dependencies (Docker caches this heavily)
 RUN apt-get update && apt-get install -y \
     curl wget build-essential cmake pkg-config libssl-dev \
     libboost-all-dev \
     python3 python3-pip python3-venv sbcl nginx supervisor git \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Rust
+# 2. HUGGING FACE MANDATORY: Create User 1000
+# Spaces strictly run as UID 1000. We must create this user and set environments.
+RUN useradd -m -u 1000 revarie
+ENV HOME=/home/revarie
+ENV PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${PATH}"
+
+# Switch to root temporarily to set up logging permissions for Nginx/Supervisor
+USER root
+RUN mkdir -p /var/log/nginx /var/lib/nginx /var/log/supervisor /var/run/supervisor /tmp/nginx \
+    && chown -R 1000:1000 /var/log/nginx /var/lib/nginx /var/log/supervisor /var/run/supervisor /etc/nginx /etc/supervisor /tmp/nginx
+
+# Switch safely to User 1000
+USER revarie
+WORKDIR ${HOME}/app
+
+# 3. Install Rust specifically for User 1000 (Only done ONCE now!)
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-WORKDIR /app
-COPY . .
+# 4. FAST CACHE: Copy requirements first so pip doesn't rebuild when C++ changes
+COPY --chown=revarie:revarie requirements.txt ./
+RUN pip3 install --no-cache-dir --user -r requirements.txt
 
-# 4. Build the C++ Reasoner (System 2 Math)
-# Now it will find Boost and compile Crow successfully
+# 5. Copy the rest of the architecture
+COPY --chown=revarie:revarie . .
+
+# 6. Build the C++ Reasoner (System 2 Math)
 RUN mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && make -j$(nproc)
 
-# 5. Build the Rust API Gateway (Brain Stem)
-RUN curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-ENV PATH="/root/.cargo/bin:${PATH}"
+# 7. Build the Rust API Gateway (Brain Stem)
 RUN cargo build --release
 
-# 6. Install Python dependencies and Namespace fix
-RUN pip3 install --break-system-packages --no-cache-dir -r requirements.txt
-RUN pip3 install --break-system-packages -e .
+# 8. Install Python Namespace fix
+RUN pip3 install --no-cache-dir --user -e .
 
-# 7. Configure nginx and supervisord
-COPY nginx.conf /etc/nginx/sites-available/default
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# 9. Configure Nginx and Supervisord
+# Because we chowned /etc/ earlier, User 1000 has permission to place these files here.
+COPY --chown=revarie:revarie nginx.conf /etc/nginx/sites-available/default
+COPY --chown=revarie:revarie supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+# 10. Expose Hugging Face Port
 EXPOSE 7860
+
+# Boot
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
