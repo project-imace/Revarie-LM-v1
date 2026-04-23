@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 2. HUGGING FACE MANDATORY: Create User 1000
-# Spaces strictly run as UID 1000. We must create this user and set environments.
+# Ubuntu 24.04 ships with a default 'ubuntu' user at UID 1000. We must delete it first.
+RUN userdel -r ubuntu || true
 RUN useradd -m -u 1000 revarie
 ENV HOME=/home/revarie
 ENV PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${PATH}"
