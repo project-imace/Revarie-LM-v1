@@ -94,7 +94,7 @@
                             for spread = (* strength weight (expt decay d))
                             do (incf (gethash assoc activated 0.0) spread)
                                (push (cons assoc spread) next-activations)))
-             (setf current next-activations)))
+             (setf current next-activations))
     activated))
 
 ;;; ---------------------------------------------------------------------------
@@ -112,7 +112,7 @@
           do (loop for j in items
                    unless (string= i j)
                    do (let ((key (if (string< i j) (cons i j) (cons j i))))
-                        (incf (gethash key co-occurrence 0))))))
+                        (incf (gethash key co-occurrence 0)))))
     
     ;; Extract significant co-occurrences
     (maphash (lambda (pair count)
