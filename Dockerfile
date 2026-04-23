@@ -4,15 +4,14 @@ FROM ubuntu:24.04 AS base
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 
-# 1. Install system dependencies (Docker caches this heavily)
+# 1. Install system dependencies (ADDED cl-alexandria)
 RUN apt-get update && apt-get install -y \
     curl wget build-essential cmake pkg-config libssl-dev \
     libboost-all-dev \
-    python3 python3-pip python3-venv sbcl nginx supervisor git \
+    python3 python3-pip python3-venv sbcl cl-alexandria nginx supervisor git \
     && rm -rf /var/lib/apt/lists/*
 
 # 2. HUGGING FACE MANDATORY: Create User 1000
-# Ubuntu 24.04 ships with a default 'ubuntu' user at UID 1000. We must delete it first.
 RUN userdel -r ubuntu || true
 RUN useradd -m -u 1000 revarie
 ENV HOME=/home/revarie
@@ -26,6 +25,11 @@ RUN mkdir -p /var/log/nginx /var/lib/nginx /var/log/supervisor /var/run/supervis
 # Switch safely to User 1000
 USER revarie
 WORKDIR ${HOME}/app
+
+# SAFETY LINK: Connect /home/revarie/app to /app for legacy configs
+USER root
+RUN ln -s /home/revarie/app /app
+USER revarie
 
 # 3. Install Rust specifically for User 1000
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -45,15 +49,14 @@ RUN mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && make -j
 RUN cargo build --release
 
 # 8. Install Python Namespace fix
-# FIX: Added --break-system-packages here as well
 RUN pip3 install --break-system-packages --no-cache-dir --user -e .
 
-# 9. Configure Nginx and Supervisord
-COPY --chown=revarie:revarie nginx.conf /etc/nginx/sites-available/default
-COPY --chown=revarie:revarie supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# 9. Configure Nginx and Supervisord (Using rigorous local paths)
+COPY --chown=revarie:revarie nginx.conf ${HOME}/app/nginx.conf
+COPY --chown=revarie:revarie supervisord.conf ${HOME}/app/supervisord.conf
 
 # 10. Expose Hugging Face Port
 EXPOSE 7860
 
-# Boot
-CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+# Boot using the local config file
+CMD ["/usr/bin/supervisord", "-n", "-c", "/home/revarie/app/supervisord.conf"]
