@@ -27,12 +27,13 @@ RUN mkdir -p /var/log/nginx /var/lib/nginx /var/log/supervisor /var/run/supervis
 USER revarie
 WORKDIR ${HOME}/app
 
-# 3. Install Rust specifically for User 1000 (Only done ONCE now!)
+# 3. Install Rust specifically for User 1000
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 # 4. FAST CACHE: Copy requirements first so pip doesn't rebuild when C++ changes
 COPY --chown=revarie:revarie requirements.txt ./
-RUN pip3 install --no-cache-dir --user -r requirements.txt
+# FIX: Added --break-system-packages to bypass PEP 668 in Ubuntu 24.04
+RUN pip3 install --break-system-packages --no-cache-dir --user -r requirements.txt
 
 # 5. Copy the rest of the architecture
 COPY --chown=revarie:revarie . .
@@ -44,10 +45,10 @@ RUN mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && make -j
 RUN cargo build --release
 
 # 8. Install Python Namespace fix
-RUN pip3 install --no-cache-dir --user -e .
+# FIX: Added --break-system-packages here as well
+RUN pip3 install --break-system-packages --no-cache-dir --user -e .
 
 # 9. Configure Nginx and Supervisord
-# Because we chowned /etc/ earlier, User 1000 has permission to place these files here.
 COPY --chown=revarie:revarie nginx.conf /etc/nginx/sites-available/default
 COPY --chown=revarie:revarie supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
