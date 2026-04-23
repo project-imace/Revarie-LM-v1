@@ -6,8 +6,6 @@ colorTo: blue
 sdk: docker
 app_port: 7860
 pinned: true
-license: apache-2.0
-short_description: Neuro-symbolic cognitive architecture for Project IMACE
 ---
 
 # Revarie LM v1.0 – Cognitive Emulation Engine
