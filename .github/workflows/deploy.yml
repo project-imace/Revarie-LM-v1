@@ -20,4 +20,4 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           # Logic: Pushes your local 'production' branch to the Space's 'main' branch
-          git push --force https://ariartry:$HF_TOKEN@huggingface.co/spaces/ariartry/revarie-engine-v1 production:main
+          git push --force https://ariartry:$HF_TOKEN@huggingface.co/spaces/ariartry/revarie-engine-v1 Production:main
