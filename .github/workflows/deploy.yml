@@ -2,7 +2,7 @@ name: Sync to Hugging Face Hub
 
 on:
   push:
-    branches: [production] # Triggers only when you push to the production branch
+    branches: [Production] # Triggers only when you push to the production branch
   workflow_dispatch:
 
 jobs:
