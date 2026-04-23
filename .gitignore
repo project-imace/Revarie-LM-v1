@@ -134,3 +134,5 @@ build/
 test_sf
 test_kg
 target/
+quicklisp.lisp
+quicklisp/
