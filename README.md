@@ -4,13 +4,15 @@ emoji: 🧠
 colorFrom: gray
 colorTo: blue
 sdk: docker
+app_port: 7860
 pinned: true
 license: apache-2.0
+short_description: Neuro-symbolic cognitive architecture for Project IMACE
 ---
 
 # Revarie LM v1.0 – Cognitive Emulation Engine
 
-This Space hosts the complete neuro‑symbolic cognitive architecture for **Project IMACE: Revarie LM v1.0**.
+This Space hosts the complete neuro-symbolic cognitive architecture for **Project IMACE: Revarie LM v1.0**.
 
 ## Architecture
 
@@ -19,7 +21,7 @@ The Docker container runs four coordinated services:
 | Service | Language | Port | Role |
 |---------|----------|------|------|
 | API Gateway | Rust (Axum) | 3000 | Main HTTP server, routing, auth |
-| Orchestrator | Python (FastAPI) | 8000 | Multi‑model LLM coordination, memory |
+| Orchestrator | Python (FastAPI) | 8000 | Multi-model LLM coordination, memory |
 | Reasoner | C++ (Crow) | 9000 | POMDP, Bayesian inference, rebound |
 | Symbolic | Common Lisp (SBCL) | – | Belief space, cognitive rules |
 
@@ -46,9 +48,9 @@ All services are managed by `supervisord` and exposed via `nginx` on port `7860`
 | `VAULT_API_KEY` | Yes | D1 API key |
 | `VECTORIZE_API_URL` | Yes | Cloudflare Vectorize URL |
 | `VECTORIZE_API_TOKEN` | Yes | Vectorize token |
-| `GROQ_KEYS` | Yes | Comma‑separated Groq keys |
-| `CEREBRAS_KEYS` | Yes | Comma‑separated Cerebras keys |
-| `GEMINI_KEYS` | Yes | Comma‑separated Gemini keys |
+| `GROQ_KEYS` | Yes | Comma-separated Groq keys |
+| `CEREBRAS_KEYS` | Yes | Comma-separated Cerebras keys |
+| `GEMINI_KEYS` | Yes | Comma-separated Gemini keys |
 
 ## Deployment
 
