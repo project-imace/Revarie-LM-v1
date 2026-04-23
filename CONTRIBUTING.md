@@ -1,4 +1,33 @@
 # Contributing to Revarie LM v1.0
+<p align="center">
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/core-math-engine.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/core-math-engine.yml/badge.svg" />
+  </a>
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/memory-rag-systems.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/memory-rag-systems.yml/badge.svg" />
+  </a>
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/persona-training.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/persona-training.yml/badge.svg" />
+  </a>
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/orchestrator-integration.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/orchestrator-integration.yml/badge.svg" />
+  </a>
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/ui-frontend.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/ui-frontend.yml/badge.svg" />
+  </a>
+  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/verify-build.yml">
+    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/verify-build.yml/badge.svg" />
+  </a>
+</p>
+
+---
+
 
 Thank you for your interest in contributing to Project IMACE.
 
