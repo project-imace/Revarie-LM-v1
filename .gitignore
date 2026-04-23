@@ -130,3 +130,7 @@ yarn-error.log*
 *.safetensors
 *.onnx
 build/
+build/
+test_sf
+test_kg
+target/
