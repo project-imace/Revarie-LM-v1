@@ -1,10 +1,15 @@
-name: Pre-Flight Build Verification
+name: Pre-Flight Build Verification (Fastest)
 
 on:
   push:
     branches: [ "Production", "main" ]
   pull_request:
     branches: [ "Production", "main" ]
+
+# Cancel stale runs on same branch – saves runner time
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-configs:
@@ -38,11 +43,13 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      
+          cache: 'pip'                     # ← Fast: caches pip dependencies
+
       - name: Verify Dependencies and Namespace
         run: |
           pip install --upgrade pip
@@ -53,17 +60,18 @@ jobs:
   docker-build-dry-run:
     name: Docker Global Build (Dry Run)
     runs-on: ubuntu-24.04
-    needs: [validate-configs, python-sanity-check]
+    # ⚡ No 'needs' – runs in parallel with the other jobs for maximum speed
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      
+
       - name: Build Container
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: false 
+          push: false
           outputs: type=cacheonly
           cache-from: type=gha
           cache-to: type=gha,mode=max
