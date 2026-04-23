@@ -1,8 +1,8 @@
 <h1 align="center">Revarie LM v1.0</h1>
-<h3 align="center">Cognitive Emulation Research Instrument</h3>
+<h3 align="center">Cognitive Emulation</h3>
 
 <p align="center">
-  <em>A research-grade neuro-symbolic cognitive architecture by <strong>Project IMACE</strong></em>
+  <em>Research on the Empirical Values of Anthropomorphic Reflections in Intelligence Emulation by <strong>Project IMACE</strong></em>
 </p>
 
 <p align="center">
