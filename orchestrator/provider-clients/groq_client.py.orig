@@ -97,7 +97,7 @@ class GroqClient:
 
         for attempt in range(retries):
             # Get next available key
-            key = await self.key_vault.get_key("groq", "round_robin")
+            key = await self.key_vault.get_key("groq", normalized_model)
             if not key:
                 logger.error(f"No available Groq key for {normalized_model}")
                 await asyncio.sleep(2 ** attempt)

@@ -67,7 +67,7 @@ class GeminiClient:
         last_error = None
 
         for attempt in range(retries):
-            key = await self.key_vault.get_key("gemini", "round_robin")
+            key = await self.key_vault.get_key("gemini", model)
             if not key:
                 logger.error(f"No available Gemini key for {model}")
                 await asyncio.sleep(2 ** attempt)

@@ -138,7 +138,7 @@ class ReasoningRouter:
         selected_provider, selected_model = None, None
 
         for provider, model in prefer_chain:
-            key = await self.key_vault.get_key(provider, "round_robin")
+            key = await self.key_vault.get_key(provider, model)
             if key and key.is_available():
                 if selected_provider is None:
                     selected_provider, selected_model = provider, model
@@ -148,7 +148,7 @@ class ReasoningRouter:
         # If no primary available, use first available from fallback
         if selected_provider is None:
             for provider, model in self.fallback_only_chain:
-                key = await self.key_vault.get_key(provider, "round_robin")
+                key = await self.key_vault.get_key(provider, model)
                 if key and key.is_available():
                     selected_provider, selected_model = provider, model
                     break

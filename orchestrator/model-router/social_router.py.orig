@@ -113,7 +113,7 @@ class SocialRouter:
         for provider, model in self.primary_chain:
             if force_provider and provider != force_provider:
                 continue
-            key = await self.key_vault.get_key(provider, "round_robin")
+            key = await self.key_vault.get_key(provider, model)
             if key and key.is_available():
                 available_chain.append((provider, model))
 
@@ -121,7 +121,7 @@ class SocialRouter:
         use_gemini = False
         if not available_chain and context in [SocialContext.EMOTIONAL_SUPPORT, SocialContext.RAPPORT_BUILDING]:
             for provider, model in self.premium_chain:
-                key = await self.key_vault.get_key(provider, "round_robin")
+                key = await self.key_vault.get_key(provider, model)
                 if key and key.is_available():
                     available_chain.append((provider, model))
                     use_gemini = True
@@ -130,7 +130,7 @@ class SocialRouter:
         # Fallback to any available
         if not available_chain:
             for provider, model in self.primary_chain + self.premium_chain:
-                key = await self.key_vault.get_key(provider, "round_robin")
+                key = await self.key_vault.get_key(provider, model)
                 if key:
                     available_chain.append((provider, model))
                     break

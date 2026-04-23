@@ -64,7 +64,7 @@ class CerebrasClient:
         last_error = None
 
         for attempt in range(retries):
-            key = await self.key_vault.get_key("cerebras", "round_robin")
+            key = await self.key_vault.get_key("cerebras", model)
             if not key:
                 logger.error(f"No available Cerebras key for {model}")
                 await asyncio.sleep(2 ** attempt)

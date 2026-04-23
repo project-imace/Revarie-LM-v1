@@ -90,7 +90,7 @@ class SafetyRouter:
 
         for chain in chains:
             for provider, model in chain:
-                key = await self.key_vault.get_key(provider, "round_robin")
+                key = await self.key_vault.get_key(provider, model)
                 if key and key.is_available():
                     if selected_provider is None:
                         selected_provider, selected_model = provider, model
