@@ -2,7 +2,7 @@
 title: Revarie LM v1.0
 emoji: 🟦
 colorFrom: gray
-colorTo: white
+colorTo: gray
 sdk: docker
 app_port: 7860
 ---
