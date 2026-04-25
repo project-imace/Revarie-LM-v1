@@ -24,9 +24,6 @@
   <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/orchestrator-integration.yml">
     <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/orchestrator-integration.yml/badge.svg" />
   </a>
-  <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/ui-frontend.yml">
-    <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/ui-frontend.yml/badge.svg" />
-  </a>
   <a href="https://github.com/project-imace/revarie-lm-v1/actions/workflows/verify-build.yml">
     <img src="https://github.com/project-imace/revarie-lm-v1/actions/workflows/verify-build.yml/badge.svg" />
   </a>
