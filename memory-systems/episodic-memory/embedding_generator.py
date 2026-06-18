@@ -125,6 +125,35 @@ class APIEmbeddingBackend(EmbeddingBackend):
         self.batch_size = batch_size
         self.max_retries = max_retries
 
+    async def _embed_batch(
+        self,
+        session: Any,
+        batch: List[str],
+        headers: Dict[str, str],
+    ) -> Dict[str, Any]:
+        """Process a single batch of texts."""
+        payload = {
+            "model": self._model_name,
+            "input": batch,
+        }
+
+        for attempt in range(self.max_retries):
+            try:
+                async with session.post(
+                    self.api_url, headers=headers, json=payload
+                ) as resp:
+                    if resp.status == 200:
+                        return await resp.json()
+                    else:
+                        if attempt == self.max_retries - 1:
+                            raise RuntimeError(f"API error {resp.status}")
+                        await asyncio.sleep(2 ** attempt)
+            except Exception:
+                if attempt == self.max_retries - 1:
+                    raise
+                await asyncio.sleep(2 ** attempt)
+        return {}
+
     async def embed(self, texts: List[str]) -> EmbeddingResult:
         import aiohttp
 
@@ -138,33 +167,18 @@ class APIEmbeddingBackend(EmbeddingBackend):
         }
 
         async with aiohttp.ClientSession() as session:
+            tasks = []
             for i in range(0, len(texts), self.batch_size):
                 batch = texts[i:i + self.batch_size]
-                payload = {
-                    "model": self._model_name,
-                    "input": batch,
-                }
+                tasks.append(self._embed_batch(session, batch, headers))
 
-                for attempt in range(self.max_retries):
-                    try:
-                        async with session.post(
-                            self.api_url, headers=headers, json=payload
-                        ) as resp:
-                            if resp.status == 200:
-                                data = await resp.json()
-                                batch_vectors = data.get("data", [])
-                                for item in batch_vectors:
-                                    all_vectors.append(item.get("embedding", []))
-                                tokens_used += data.get("usage", {}).get("total_tokens", 0)
-                                break
-                            else:
-                                if attempt == self.max_retries - 1:
-                                    raise RuntimeError(f"API error {resp.status}")
-                                await asyncio.sleep(2 ** attempt)
-                    except Exception as e:
-                        if attempt == self.max_retries - 1:
-                            raise
-                        await asyncio.sleep(2 ** attempt)
+            results = await asyncio.gather(*tasks)
+
+            for data in results:
+                batch_vectors = data.get("data", [])
+                for item in batch_vectors:
+                    all_vectors.append(item.get("embedding", []))
+                tokens_used += data.get("usage", {}).get("total_tokens", 0)
 
         latency = (time.perf_counter() - start) * 1000
         return EmbeddingResult(
