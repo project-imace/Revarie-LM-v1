@@ -18,7 +18,6 @@ from typing import Dict, List, Optional, Tuple, Any, Deque
 from dataclasses import dataclass, field
 from collections import deque
 from enum import Enum
-import os
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -190,31 +189,6 @@ class APIKeyVault:
         """Run health check on all pools."""
         for pool in self.pools.values():
             pool.health_check()
-
-    def setup_round_robin_pools(self):
-        """
-        Set up the round robin pools for the three main providers: groq, cerebras, gemini
-        """
-
-        def get_keys(env_var_names):
-            keys = []
-            for env_var in env_var_names:
-                val = os.environ.get(env_var)
-                if val:
-                    keys.extend([k.strip() for k in val.split(',') if k.strip()])
-            return keys
-
-        groq_keys = get_keys(["GROQ_KEYS", "GROQ_REASONING_120B_KEYS", "GROQ_REASONING_20B_KEYS", "GROQ_SOCIAL_70B_KEYS", "GROQ_SOCIAL_SCOUT_KEYS", "GROQ_MEMORY_INSTANT_KEYS", "GROQ_MEMORY_QWEN_KEYS", "GROQ_SAFETY_SAFEGUARD_KEYS", "GROQ_SAFETY_GUARD_86M_KEYS", "GROQ_SAFETY_GUARD_22M_KEYS"])
-        if groq_keys:
-            self.register_keys("groq", "round_robin", groq_keys)
-
-        cerebras_keys = get_keys(["CEREBRAS_KEYS", "CEREBRAS_QWEN_235B_KEYS", "CEREBRAS_LLAMA_8B_KEYS"])
-        if cerebras_keys:
-            self.register_keys("cerebras", "round_robin", cerebras_keys)
-
-        gemini_keys = get_keys(["GEMINI_KEYS", "GEMINI_FLASH_KEYS", "GEMINI_FLASH_LITE_KEYS"])
-        if gemini_keys:
-            self.register_keys("gemini", "round_robin", gemini_keys)
 
 
 # =============================================================================
